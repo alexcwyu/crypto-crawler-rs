@@ -40,19 +40,27 @@ impl<const MARKET_TYPE: char> BitgetCommandTranslator<MARKET_TYPE> {
                 let mut map = BTreeMap::new();
                 let (channel, symbol) = t;
                 // websocket doesn't recognize SPBL, DMCBL and UMCBL suffixes
+                let inst_type = if MARKET_TYPE == 'S' {
+                    "SPOT"
+                } else if symbol.ends_with("_DMCBL") {
+                    "COIN-FUTURES"
+                } else if symbol.ends_with("_CMCBL") {
+                    "USDC-FUTURES"
+                } else {
+                    "USDT-FUTURES"
+                };
                 let symbol = if let Some(x) = symbol.strip_suffix("_SPBL") {
                     x
                 } else if let Some(x) = symbol.strip_suffix("_DMCBL") {
+                    x
+                } else if let Some(x) = symbol.strip_suffix("_CMCBL") {
                     x
                 } else if let Some(x) = symbol.strip_suffix("_UMCBL") {
                     x
                 } else {
                     symbol
                 };
-                map.insert(
-                    "instType".to_string(),
-                    (if MARKET_TYPE == 'S' { "SP" } else { "MC" }).to_string(),
-                );
+                map.insert("instType".to_string(), inst_type.to_string());
                 map.insert("channel".to_string(), channel.to_string());
                 map.insert("instId".to_string(), symbol.to_string());
                 map
@@ -152,7 +160,7 @@ mod tests {
 
         assert_eq!(1, commands.len());
         assert_eq!(
-            r#"{"op":"subscribe","args":[{"channel":"trade","instId":"BTCUSDT","instType":"SP"}]}"#,
+            r#"{"op":"subscribe","args":[{"channel":"trade","instId":"BTCUSDT","instType":"SPOT"}]}"#,
             commands[0]
         );
     }
@@ -170,7 +178,7 @@ mod tests {
 
         assert_eq!(1, commands.len());
         assert_eq!(
-            r#"{"op":"subscribe","args":[{"channel":"trade","instId":"BTCUSDT","instType":"SP"},{"channel":"books","instId":"ETHUSDT","instType":"SP"}]}"#,
+            r#"{"op":"subscribe","args":[{"channel":"trade","instId":"BTCUSDT","instType":"SPOT"},{"channel":"books","instId":"ETHUSDT","instType":"SPOT"}]}"#,
             commands[0]
         );
     }
@@ -185,7 +193,7 @@ mod tests {
 
         assert_eq!(1, commands.len());
         assert_eq!(
-            r#"{"op":"subscribe","args":[{"channel":"candle1m","instId":"BTCUSDT","instType":"SP"},{"channel":"candle5m","instId":"ETHUSDT","instType":"SP"}]}"#,
+            r#"{"op":"subscribe","args":[{"channel":"candle1m","instId":"BTCUSDT","instType":"SPOT"},{"channel":"candle5m","instId":"ETHUSDT","instType":"SPOT"}]}"#,
             commands[0]
         );
     }

@@ -1,4 +1,5 @@
 [workspace]
+resolver = "2"
 members = [
   "crypto-client",
   "crypto-crawler",
@@ -8,3 +9,15 @@ members = [
   "crypto-rest-client",
   "crypto-ws-client",
 ]
+
+[patch.crates-io]
+crypto-msg-parser = { path = "vendor/crypto-msg-parser" }
+crypto-pair = { path = "vendor/crypto-pair" }
+
+crypto-client = { path = "crypto-client" }
+crypto-crawler = { path = "crypto-crawler" }
+crypto-markets = { path = "crypto-markets" }
+crypto-market-type = { path = "crypto-market-type" }
+crypto-msg-type = { path = "crypto-msg-type" }
+crypto-rest-client = { path = "crypto-rest-client" }
+crypto-ws-client = { path = "crypto-ws-client" }

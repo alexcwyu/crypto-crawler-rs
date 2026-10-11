@@ -44,7 +44,9 @@ macro_rules! test_one_symbol {
             $crawl_func($exchange, $market_type, Some(&symbols), tx).await;
         });
 
-        let msg = rx.recv().unwrap();
+        let msg = rx
+            .recv_timeout(std::time::Duration::from_secs(30))
+            .expect("live exchange did not deliver a message within 30 seconds");
 
         assert_eq!(msg.exchange, $exchange.to_string());
         assert_eq!(msg.market_type, $market_type);
@@ -62,7 +64,9 @@ macro_rules! test_all_symbols {
             $crawl_func($exchange, $market_type, None, tx).await;
         });
 
-        let msg = rx.recv().unwrap();
+        let msg = rx
+            .recv_timeout(std::time::Duration::from_secs(30))
+            .expect("live exchange did not deliver a message within 30 seconds");
 
         assert_eq!(msg.exchange, $exchange.to_string());
         assert_eq!(msg.market_type, $market_type);
@@ -81,7 +85,9 @@ macro_rules! test_crawl_restful {
             $crawl_func($exchange, $market_type, Some(&symbols), tx);
         });
 
-        let msg = rx.recv().unwrap();
+        let msg = rx
+            .recv_timeout(std::time::Duration::from_secs(30))
+            .expect("live exchange did not deliver a message within 30 seconds");
 
         assert_eq!(msg.exchange, $exchange.to_string());
         assert_eq!(msg.market_type, $market_type);
@@ -99,7 +105,9 @@ macro_rules! test_crawl_restful_all_symbols {
             $crawl_func($exchange, $market_type, None, tx);
         });
 
-        let msg = rx.recv().unwrap();
+        let msg = rx
+            .recv_timeout(std::time::Duration::from_secs(30))
+            .expect("live exchange did not deliver a message within 30 seconds");
 
         assert_eq!(msg.exchange, $exchange.to_string());
         assert_eq!(msg.market_type, $market_type);
@@ -117,7 +125,9 @@ macro_rules! gen_test_crawl_candlestick {
             crawl_candlestick($exchange, $market_type, None, tx).await;
         });
 
-        let msg = rx.recv().unwrap();
+        let msg = rx
+            .recv_timeout(std::time::Duration::from_secs(30))
+            .expect("live exchange did not deliver a message within 30 seconds");
 
         assert_eq!(msg.exchange, $exchange.to_string());
         assert_eq!(msg.market_type, $market_type);
@@ -144,3 +154,7 @@ macro_rules! gen_test_subscribe_symbol {
         assert!(!messages.is_empty());
     }};
 }
+
+#[path = "../../../test_support/listed_contracts.rs"]
+mod listed_contracts;
+pub(crate) use listed_contracts::current_expiring_symbol;

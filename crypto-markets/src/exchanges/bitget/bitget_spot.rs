@@ -2,8 +2,8 @@ use std::collections::HashMap;
 
 use super::{super::utils::http_get, EXCHANGE_NAME};
 use crate::{
-    error::{Error, Result},
     Fees, Market, Precision, QuantityLimit,
+    error::{Error, Result},
 };
 
 use crypto_market_type::MarketType;
@@ -15,15 +15,16 @@ use serde_json::Value;
 #[allow(non_snake_case)]
 struct SpotMarket {
     symbol: String,         // symbol Id
-    symbolName: String,     // symbol name
     baseCoin: String,       // Base coin
     quoteCoin: String,      // Denomination coin
     minTradeAmount: String, // Min trading amount
     maxTradeAmount: String, // Max trading amount
     takerFeeRate: String,   // Taker transaction fee rate
     makerFeeRate: String,   // Maker transaction fee rate
-    priceScale: String,     // Maker transaction fee rate
-    quantityScale: String,  // Quantity scale
+    #[serde(alias = "pricePrecision")]
+    priceScale: String, // Maker transaction fee rate
+    #[serde(alias = "quantityPrecision")]
+    quantityScale: String, // Quantity scale
     status: String,         // Status
     #[serde(flatten)]
     extra: HashMap<String, Value>,
@@ -42,8 +43,11 @@ struct Response {
 
 // See https://bitgetlimited.github.io/apidoc/en/spot/#get-all-instruments
 fn fetch_spot_markets_raw() -> Result<Vec<SpotMarket>> {
-    let txt = http_get("https://api.bitget.com/api/spot/v1/public/products", None)?;
-    let resp = serde_json::from_str::<Response>(&txt)?;
+    let txt = http_get("https://api.bitget.com/api/v2/spot/public/symbols", None)?;
+    let mut resp = serde_json::from_str::<Response>(&txt)?;
+    for market in &mut resp.data {
+        market.symbol.push_str("_SPBL");
+    }
     if resp.msg != "success" {
         Err(Error(txt))
     } else {

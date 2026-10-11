@@ -1,19 +1,19 @@
 use async_trait::async_trait;
 
 use crate::{
+    WSClient,
     clients::common_traits::{
-        Candlestick, Level3OrderBook, OrderBook, OrderBookTopK, Ticker, Trade, BBO,
+        BBO, Candlestick, Level3OrderBook, OrderBook, OrderBookTopK, Ticker, Trade,
     },
     common::{command_translator::CommandTranslator, ws_client_internal::WSClientInternal},
-    WSClient,
 };
 
 use super::{
-    utils::{BitgetCommandTranslator, BitgetMessageHandler, UPLINK_LIMIT},
     EXCHANGE_NAME,
+    utils::{BitgetCommandTranslator, BitgetMessageHandler, UPLINK_LIMIT},
 };
 
-const WEBSOCKET_URL: &str = "wss://ws.bitget.com/mix/v1/stream";
+const WEBSOCKET_URL: &str = "wss://ws.bitget.com/v2/ws/public";
 
 /// The WebSocket client for Bitget swap markets.
 ///

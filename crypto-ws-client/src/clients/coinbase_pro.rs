@@ -3,15 +3,15 @@ use std::collections::{BTreeMap, HashMap};
 use tokio_tungstenite::tungstenite::Message;
 
 use crate::{
+    WSClient,
     clients::common_traits::{
-        Candlestick, Level3OrderBook, OrderBook, OrderBookTopK, Ticker, Trade, BBO,
+        BBO, Candlestick, Level3OrderBook, OrderBook, OrderBookTopK, Ticker, Trade,
     },
     common::{
         command_translator::CommandTranslator,
         message_handler::{MessageHandler, MiscMessage},
         ws_client_internal::WSClientInternal,
     },
-    WSClient,
 };
 use log::*;
 use serde_json::Value;
@@ -42,7 +42,9 @@ impl_new_constructor!(
 impl_trait!(Trade, CoinbaseProWSClient, subscribe_trade, "matches");
 impl_trait!(Ticker, CoinbaseProWSClient, subscribe_ticker, "ticker");
 #[rustfmt::skip]
-impl_trait!(OrderBook, CoinbaseProWSClient, subscribe_orderbook, "level2");
+// Public Level 2 now requires the documented unauthenticated batch channel.
+// It keeps the snapshot/l2update schema and batches updates every 50 ms.
+impl_trait!(OrderBook, CoinbaseProWSClient, subscribe_orderbook, "level2_batch");
 #[rustfmt::skip]
 impl_trait!(Level3OrderBook, CoinbaseProWSClient, subscribe_l3_orderbook, "full");
 

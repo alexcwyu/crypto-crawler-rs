@@ -1,0 +1,17 @@
+# crypto-pair
+
+[![](https://img.shields.io/crates/v/crypto-pair.svg)](https://crates.io/crates/crypto-pair)
+[![](https://docs.rs/crypto-pair/badge.svg)](https://docs.rs/crypto-pair)
+==========
+
+Parse exchange-specific symbols to unified format.
+
+## Usage
+
+```rust
+use crypto_pair::normalize_pair;
+
+fn main() {
+    assert_eq!(Some("BTC/USD".to_string()), normalize_pair("XBTH21", "BitMEX"));
+}
+```

@@ -10,10 +10,9 @@ macro_rules! gen_test_code {
         });
 
         let mut messages = Vec::<String>::new();
-        for msg in rx {
-            messages.push(msg);
-            break;
-        }
+        let msg = rx.recv_timeout(std::time::Duration::from_secs(90))
+            .expect("live exchange did not deliver a message within 90 seconds (metadata plus the original 60-second stream window)");
+        messages.push(msg);
         assert!(!messages.is_empty());
     };
 }
@@ -31,10 +30,9 @@ macro_rules! gen_test_subscribe_candlestick {
         });
 
         let mut messages = Vec::<String>::new();
-        for msg in rx {
-            messages.push(msg);
-            break;
-        }
+        let msg = rx.recv_timeout(std::time::Duration::from_secs(90))
+            .expect("live exchange did not deliver a message within 90 seconds (metadata plus the original 60-second stream window)");
+        messages.push(msg);
         assert!(!messages.is_empty());
     };
 }

@@ -2,8 +2,8 @@ use std::collections::HashMap;
 
 use super::{super::utils::http_get, EXCHANGE_NAME};
 use crate::{
-    error::{Error, Result},
     Fees, Market, Precision, QuantityLimit,
+    error::{Error, Result},
 };
 
 use chrono::DateTime;
@@ -48,16 +48,29 @@ struct Response {
 // product_type: umcbl, LinearSwap; dmcbl, InverseSwap;
 fn fetch_swap_markets_raw(product_type: &str) -> Result<Vec<SwapMarket>> {
     let txt = http_get(
-        format!("https://api.bitget.com/api/mix/v1/market/contracts?productType={product_type}")
+        format!("https://api.bitget.com/api/v2/mix/market/contracts?productType={product_type}")
             .as_str(),
         None,
     )?;
-    let resp = serde_json::from_str::<Response>(&txt)?;
+    let mut resp = serde_json::from_str::<Response>(&txt)?;
+    // Keep the admitted legacy symbol IDs at this API boundary while v2 uses bare IDs.
+    let suffix = match product_type {
+        "USDT-FUTURES" => "_UMCBL",
+        "USDC-FUTURES" => "_CMCBL",
+        "COIN-FUTURES" => "_DMCBL",
+        _ => unreachable!("validated Bitget product type"),
+    };
+    resp.data.retain(|m| m.extra.get("symbolStatus").and_then(Value::as_str) == Some("normal"));
+    for market in &mut resp.data {
+        if market.extra.get("symbolType").and_then(Value::as_str) == Some("perpetual") {
+            market.symbol.push_str(suffix);
+        }
+    }
     if resp.msg != "success" { Err(Error(txt)) } else { Ok(resp.data) }
 }
 
 pub(super) fn fetch_inverse_swap_symbols() -> Result<Vec<String>> {
-    let symbols = fetch_swap_markets_raw("dmcbl")?
+    let symbols = fetch_swap_markets_raw("COIN-FUTURES")?
         .into_iter()
         .map(|m| m.symbol)
         .filter(|symbol| symbol.ends_with("_DMCBL"))
@@ -66,7 +79,7 @@ pub(super) fn fetch_inverse_swap_symbols() -> Result<Vec<String>> {
 }
 
 pub(super) fn fetch_inverse_future_symbols() -> Result<Vec<String>> {
-    let symbols = fetch_swap_markets_raw("dmcbl")?
+    let symbols = fetch_swap_markets_raw("COIN-FUTURES")?
         .into_iter()
         .map(|m| m.symbol)
         .filter(|symbol| !symbol.ends_with("_DMCBL"))
@@ -76,16 +89,20 @@ pub(super) fn fetch_inverse_future_symbols() -> Result<Vec<String>> {
 
 pub(super) fn fetch_linear_swap_symbols() -> Result<Vec<String>> {
     // see https://bitgetlimited.github.io/apidoc/en/mix/#producttype
-    let mut usdt_symbols =
-        fetch_swap_markets_raw("umcbl")?.into_iter().map(|m| m.symbol).collect::<Vec<String>>();
-    let usdc_symbols =
-        fetch_swap_markets_raw("cmcbl")?.into_iter().map(|m| m.symbol).collect::<Vec<String>>();
+    let mut usdt_symbols = fetch_swap_markets_raw("USDT-FUTURES")?
+        .into_iter()
+        .map(|m| m.symbol)
+        .collect::<Vec<String>>();
+    let usdc_symbols = fetch_swap_markets_raw("USDC-FUTURES")?
+        .into_iter()
+        .map(|m| m.symbol)
+        .collect::<Vec<String>>();
     usdt_symbols.extend(usdc_symbols);
     Ok(usdt_symbols)
 }
 
 pub(super) fn fetch_inverse_swap_markets() -> Result<Vec<Market>> {
-    let markets = fetch_swap_markets_raw("dmcbl")?
+    let markets = fetch_swap_markets_raw("COIN-FUTURES")?
         .into_iter()
         .filter(|market| market.symbol.ends_with("_DMCBL"))
         .map(to_market)
@@ -94,7 +111,7 @@ pub(super) fn fetch_inverse_swap_markets() -> Result<Vec<Market>> {
 }
 
 pub(super) fn fetch_inverse_future_markets() -> Result<Vec<Market>> {
-    let markets = fetch_swap_markets_raw("dmcbl")?
+    let markets = fetch_swap_markets_raw("COIN-FUTURES")?
         .into_iter()
         .filter(|market| !market.symbol.ends_with("_DMCBL"))
         .map(to_market)
@@ -104,7 +121,7 @@ pub(super) fn fetch_inverse_future_markets() -> Result<Vec<Market>> {
 
 pub(super) fn fetch_linear_swap_markets() -> Result<Vec<Market>> {
     let markets =
-        fetch_swap_markets_raw("umcbl")?.into_iter().map(to_market).collect::<Vec<Market>>();
+        fetch_swap_markets_raw("USDT-FUTURES")?.into_iter().map(to_market).collect::<Vec<Market>>();
     Ok(markets)
 }
 

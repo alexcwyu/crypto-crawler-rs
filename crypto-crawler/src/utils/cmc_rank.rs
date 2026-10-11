@@ -330,8 +330,6 @@ pub(crate) fn sort_by_cmc_rank(exchange: &str, symbols: &mut [String]) {
 
 #[cfg(test)]
 mod tests {
-    use crypto_market_type::MarketType;
-
     #[test]
     fn test_get_cmc_ranks() {
         let mapping = super::get_cmc_ranks(256);
@@ -344,12 +342,15 @@ mod tests {
 
     #[test]
     fn test_sort_by_cmc_rank() {
-        let mut binance_linear_swap =
-            crypto_markets::fetch_symbols("binance", MarketType::LinearSwap).unwrap();
+        // Rank ordering is independent of Binance's changing listing universe.
+        // Preserve the ranking assertion with a fixed, deliberately shuffled list.
+        let mut binance_linear_swap = vec![
+            "ETHUSDT".to_owned(),
+            "BTCUSDT".to_owned(),
+            "ETHUSDC".to_owned(),
+            "BTCUSDC".to_owned(),
+        ];
         super::sort_by_cmc_rank("binance", &mut binance_linear_swap);
-        assert_eq!("BTCUSDT", binance_linear_swap[0]);
-        assert_eq!("BTCBUSD", binance_linear_swap[1]);
-        assert_eq!("ETHUSDT", binance_linear_swap[2]);
-        assert_eq!("ETHBUSD", binance_linear_swap[3]);
+        assert_eq!(binance_linear_swap, ["BTCUSDT", "BTCUSDC", "ETHUSDT", "ETHUSDC"]);
     }
 }

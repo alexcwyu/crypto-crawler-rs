@@ -10,8 +10,9 @@ use log::*;
 use serde_json::Value;
 
 use crate::{
+    WSClient,
     clients::common_traits::{
-        Candlestick, Level3OrderBook, OrderBook, OrderBookTopK, Ticker, Trade, BBO,
+        BBO, Candlestick, Level3OrderBook, OrderBook, OrderBookTopK, Ticker, Trade,
     },
     common::{
         command_translator::CommandTranslator,
@@ -19,12 +20,12 @@ use crate::{
         utils::ensure_frame_size,
         ws_client_internal::WSClientInternal,
     },
-    WSClient,
 };
 
 pub(crate) const EXCHANGE_NAME: &str = "okx";
 
 const WEBSOCKET_URL: &str = "wss://ws.okx.com:8443/ws/v5/public";
+const BUSINESS_WEBSOCKET_URL: &str = "wss://ws.okx.com:8443/ws/v5/business";
 
 /// https://www.okx.com/docs-v5/en/#websocket-api-subscribe
 /// The total length of multiple channels cannot exceed 4096 bytes
@@ -48,6 +49,7 @@ const UPLINK_LIMIT: (NonZeroU32, std::time::Duration) =
 pub struct OkxWSClient {
     client: WSClientInternal<OkxMessageHandler>,
     translator: OkxCommandTranslator,
+    business_client: Option<WSClientInternal<OkxMessageHandler>>,
 }
 
 impl OkxWSClient {
@@ -56,7 +58,24 @@ impl OkxWSClient {
             Some(endpoint) => endpoint,
             None => WEBSOCKET_URL,
         };
+        // The current candlestick channels belong to the business endpoint.
+        // An explicit endpoint override retains the original single-connection API.
+        let business_client = if url.is_none() {
+            Some(
+                WSClientInternal::connect(
+                    EXCHANGE_NAME,
+                    BUSINESS_WEBSOCKET_URL,
+                    OkxMessageHandler {},
+                    Some(UPLINK_LIMIT),
+                    tx.clone(),
+                )
+                .await,
+            )
+        } else {
+            None
+        };
         OkxWSClient {
+            business_client,
             client: WSClientInternal::connect(
                 EXCHANGE_NAME,
                 real_url,
@@ -66,6 +85,44 @@ impl OkxWSClient {
             )
             .await,
             translator: OkxCommandTranslator {},
+        }
+    }
+    async fn send_routed(&self, commands: &[String]) {
+        let Some(business_client) = &self.business_client else {
+            self.client.send(commands).await;
+            return;
+        };
+        let mut public_commands = Vec::new();
+        let mut business_commands = Vec::new();
+        for command in commands {
+            let Ok(value) = serde_json::from_str::<Value>(command) else {
+                public_commands.push(command.clone());
+                continue;
+            };
+            let Some(args) = value.get("args").and_then(Value::as_array) else {
+                public_commands.push(command.clone());
+                continue;
+            };
+            let (business, public): (Vec<_>, Vec<_>) = args.iter().cloned().partition(|arg| {
+                arg.get("channel")
+                    .and_then(Value::as_str)
+                    .is_some_and(|channel| channel.starts_with("candle"))
+            });
+            for (args, target) in
+                [(public, &mut public_commands), (business, &mut business_commands)]
+            {
+                if !args.is_empty() {
+                    let mut routed = value.clone();
+                    routed["args"] = Value::Array(args);
+                    target.push(routed.to_string());
+                }
+            }
+        }
+        if !public_commands.is_empty() {
+            self.client.send(&public_commands).await;
+        }
+        if !business_commands.is_empty() {
+            business_client.send(&business_commands).await;
         }
     }
 }
@@ -78,10 +135,75 @@ impl_trait!(BBO, OkxWSClient, subscribe_bbo, "bbo-tbt");
 impl_trait!(OrderBook, OkxWSClient, subscribe_orderbook, "books");
 #[rustfmt::skip]
 impl_trait!(OrderBookTopK, OkxWSClient, subscribe_orderbook_topk, "books5");
-impl_candlestick!(OkxWSClient);
+#[async_trait]
+impl Candlestick for OkxWSClient {
+    async fn subscribe_candlestick(&self, symbol_interval_list: &[(String, usize)]) {
+        let commands =
+            self.translator.translate_to_candlestick_commands(true, symbol_interval_list);
+        self.send_routed(&commands).await;
+    }
+}
 panic_l3_orderbook!(OkxWSClient);
 
-impl_ws_client_trait!(OkxWSClient);
+#[async_trait]
+impl WSClient for OkxWSClient {
+    async fn subscribe_trade(&self, symbols: &[String]) {
+        <OkxWSClient as Trade>::subscribe_trade(self, symbols).await
+    }
+
+    async fn subscribe_orderbook(&self, symbols: &[String]) {
+        <OkxWSClient as OrderBook>::subscribe_orderbook(self, symbols).await
+    }
+
+    async fn subscribe_orderbook_topk(&self, symbols: &[String]) {
+        <OkxWSClient as OrderBookTopK>::subscribe_orderbook_topk(self, symbols).await
+    }
+
+    async fn subscribe_l3_orderbook(&self, symbols: &[String]) {
+        <OkxWSClient as Level3OrderBook>::subscribe_l3_orderbook(self, symbols).await
+    }
+
+    async fn subscribe_ticker(&self, symbols: &[String]) {
+        <OkxWSClient as Ticker>::subscribe_ticker(self, symbols).await
+    }
+
+    async fn subscribe_bbo(&self, symbols: &[String]) {
+        <OkxWSClient as BBO>::subscribe_bbo(self, symbols).await
+    }
+
+    async fn subscribe_candlestick(&self, symbol_interval_list: &[(String, usize)]) {
+        <OkxWSClient as Candlestick>::subscribe_candlestick(self, symbol_interval_list).await
+    }
+
+    async fn subscribe(&self, topics: &[(String, String)]) {
+        let commands = self.translator.translate_to_commands(true, topics);
+        self.send_routed(&commands).await;
+    }
+
+    async fn unsubscribe(&self, topics: &[(String, String)]) {
+        let commands = self.translator.translate_to_commands(false, topics);
+        self.send_routed(&commands).await;
+    }
+
+    async fn send(&self, commands: &[String]) {
+        self.send_routed(commands).await;
+    }
+
+    async fn run(&self) {
+        if let Some(business) = &self.business_client {
+            tokio::join!(self.client.run(), business.run());
+        } else {
+            self.client.run().await;
+        }
+    }
+
+    async fn close(&self) {
+        self.client.close().await;
+        if let Some(business) = &self.business_client {
+            business.close().await;
+        }
+    }
+}
 
 struct OkxMessageHandler {}
 struct OkxCommandTranslator {}

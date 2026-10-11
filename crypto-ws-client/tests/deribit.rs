@@ -1,3 +1,6 @@
+#[path = "../../test_support/listed_contracts.rs"]
+mod listed_contracts;
+
 use crypto_ws_client::{DeribitWSClient, WSClient};
 
 #[macro_use]
@@ -36,34 +39,97 @@ mod deribit_inverse_future {
         gen_test_code!(
             DeribitWSClient,
             subscribe_trade,
-            &["BTC-26AUG22".to_string(), "BTC-30DEC22".to_string()]
+            &[
+                tokio::task::block_in_place(|| crate::listed_contracts::current_expiring_symbol(
+                    "deribit",
+                    crypto_market_type::MarketType::InverseFuture,
+                    "BTC-26AUG22"
+                )),
+                tokio::task::block_in_place(|| crate::listed_contracts::current_expiring_symbol(
+                    "deribit",
+                    crypto_market_type::MarketType::InverseFuture,
+                    "BTC-30DEC22"
+                ))
+            ]
         );
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn subscribe_ticker() {
-        gen_test_code!(DeribitWSClient, subscribe_ticker, &["BTC-30DEC22".to_string()]);
+        gen_test_code!(
+            DeribitWSClient,
+            subscribe_ticker,
+            &[tokio::task::block_in_place(|| crate::listed_contracts::current_expiring_symbol(
+                "deribit",
+                crypto_market_type::MarketType::InverseFuture,
+                "BTC-30DEC22"
+            ))]
+        );
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn subscribe_orderbook() {
-        gen_test_code!(DeribitWSClient, subscribe_orderbook, &["BTC-30DEC22".to_string()]);
+        gen_test_code!(
+            DeribitWSClient,
+            subscribe_orderbook,
+            &[tokio::task::block_in_place(|| crate::listed_contracts::current_expiring_symbol(
+                "deribit",
+                crypto_market_type::MarketType::InverseFuture,
+                "BTC-30DEC22"
+            ))]
+        );
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn subscribe_orderbook_topk() {
-        gen_test_code!(DeribitWSClient, subscribe_orderbook_topk, &["BTC-30DEC22".to_string()]);
+        gen_test_code!(
+            DeribitWSClient,
+            subscribe_orderbook_topk,
+            &[tokio::task::block_in_place(|| crate::listed_contracts::current_expiring_symbol(
+                "deribit",
+                crypto_market_type::MarketType::InverseFuture,
+                "BTC-30DEC22"
+            ))]
+        );
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn subscribe_bbo() {
-        gen_test_code!(DeribitWSClient, subscribe_bbo, &["BTC-30DEC22".to_string()]);
+        gen_test_code!(
+            DeribitWSClient,
+            subscribe_bbo,
+            &[tokio::task::block_in_place(|| crate::listed_contracts::current_expiring_symbol(
+                "deribit",
+                crypto_market_type::MarketType::InverseFuture,
+                "BTC-30DEC22"
+            ))]
+        );
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn subscribe_candlestick() {
-        gen_test_subscribe_candlestick!(DeribitWSClient, &[("BTC-30DEC22".to_string(), 60)]);
-        gen_test_subscribe_candlestick!(DeribitWSClient, &[("BTC-30DEC22".to_string(), 86400)]);
+        gen_test_subscribe_candlestick!(
+            DeribitWSClient,
+            &[(
+                tokio::task::block_in_place(|| crate::listed_contracts::current_expiring_symbol(
+                    "deribit",
+                    crypto_market_type::MarketType::InverseFuture,
+                    "BTC-30DEC22"
+                )),
+                60
+            )]
+        );
+        gen_test_subscribe_candlestick!(
+            DeribitWSClient,
+            &[(
+                tokio::task::block_in_place(|| crate::listed_contracts::current_expiring_symbol(
+                    "deribit",
+                    crypto_market_type::MarketType::InverseFuture,
+                    "BTC-30DEC22"
+                )),
+                86400
+            )]
+        );
     }
 }
 

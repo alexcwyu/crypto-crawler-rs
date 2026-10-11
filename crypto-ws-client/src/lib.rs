@@ -14,7 +14,7 @@
 //!         ws_client.subscribe_trade(&symbols).await;
 //!         // run for 5 seconds
 //!         let _ = tokio::time::timeout(std::time::Duration::from_secs(5), ws_client.run()).await;
-//!         ws_client.close();
+//!         ws_client.close().await;
 //!     });
 //!
 //!     let mut messages = Vec::new();

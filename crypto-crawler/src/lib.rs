@@ -14,10 +14,9 @@
 //!     });
 //!
 //!     let mut messages = Vec::new();
-//!     for msg in rx {
-//!         messages.push(msg);
-//!         break;
-//!     }
+//!     let msg = rx.recv_timeout(std::time::Duration::from_secs(30))
+//!         .expect("live exchange did not deliver a message within 30 seconds");
+//!     messages.push(msg);
 //!     assert!(!messages.is_empty());
 //! }
 //! ```
@@ -36,10 +35,9 @@
 //!     });
 //!
 //!     let mut messages = Vec::new();
-//!     for msg in rx {
-//!         messages.push(msg);
-//!         break;
-//!     }
+//!     let msg = rx.recv_timeout(std::time::Duration::from_secs(30))
+//!         .expect("live exchange did not deliver a message within 30 seconds");
+//!     messages.push(msg);
 //!     assert!(!messages.is_empty());
 //! }
 //! ```
@@ -56,10 +54,9 @@
 //! });
 //!
 //! let mut messages = Vec::new();
-//! for msg in rx {
-//!     messages.push(msg);
-//!     break;
-//! }
+//! let msg = rx.recv_timeout(std::time::Duration::from_secs(30))
+//!     .expect("live exchange did not deliver a message within 30 seconds");
+//! messages.push(msg);
 //! assert!(!messages.is_empty());
 //! ```
 //!
@@ -77,10 +74,9 @@
 //!     });
 //!
 //!     let mut messages = Vec::new();
-//!     for msg in rx {
-//!         messages.push(msg);
-//!         break;
-//!     }
+//!     let msg = rx.recv_timeout(std::time::Duration::from_secs(30))
+//!         .expect("live exchange did not deliver a message within 30 seconds");
+//!     messages.push(msg);
 //!     assert!(!messages.is_empty());
 //! }
 //! ```
@@ -99,10 +95,9 @@
 //!     });
 //!
 //!     let mut messages = Vec::new();
-//!     for msg in rx {
-//!         messages.push(msg);
-//!         break;
-//!     }
+//!     let msg = rx.recv_timeout(std::time::Duration::from_secs(30))
+//!         .expect("live exchange did not deliver a message within 30 seconds");
+//!     messages.push(msg);
 //!     assert!(!messages.is_empty());
 //! }
 //! ```
@@ -119,10 +114,9 @@
 //! });
 //!
 //! let mut messages = Vec::new();
-//! for msg in rx {
-//!     messages.push(msg);
-//!     break;
-//! }
+//! let msg = rx.recv_timeout(std::time::Duration::from_secs(30))
+//!     .expect("live exchange did not deliver a message within 30 seconds");
+//! messages.push(msg);
 //! assert!(!messages.is_empty());
 //! ```
 //!
@@ -140,10 +134,9 @@
 //!     });
 //!
 //!     let mut messages = Vec::new();
-//!     for msg in rx {
-//!         messages.push(msg);
-//!         break;
-//!     }
+//!     let msg = rx.recv_timeout(std::time::Duration::from_secs(30))
+//!         .expect("live exchange did not deliver a message within 30 seconds");
+//!     messages.push(msg);
 //!     assert!(!messages.is_empty());
 //! }
 //! ```
@@ -162,10 +155,9 @@
 //!     });
 //!
 //!     let mut messages = Vec::new();
-//!     for msg in rx {
-//!         messages.push(msg);
-//!         break;
-//!     }
+//!     let msg = rx.recv_timeout(std::time::Duration::from_secs(30))
+//!         .expect("live exchange did not deliver a message within 30 seconds");
+//!     messages.push(msg);
 //!     assert!(!messages.is_empty());
 //! }
 //! ```
@@ -184,10 +176,9 @@
 //!     });
 //!
 //!     let mut messages = Vec::new();
-//!     for msg in rx {
-//!         messages.push(msg);
-//!         break;
-//!     }
+//!     let msg = rx.recv_timeout(std::time::Duration::from_secs(30))
+//!         .expect("live exchange did not deliver a message within 30 seconds");
+//!     messages.push(msg);
 //!     assert!(!messages.is_empty());
 //! }
 //! ```
@@ -206,10 +197,9 @@
 //!     });
 //!
 //!     let mut messages = Vec::new();
-//!     for msg in rx {
-//!         messages.push(msg);
-//!         break;
-//!     }
+//!     let msg = rx.recv_timeout(std::time::Duration::from_secs(30))
+//!         .expect("live exchange did not deliver a message within 30 seconds");
+//!     messages.push(msg);
 //!     assert!(!messages.is_empty());
 //! }
 //! ```

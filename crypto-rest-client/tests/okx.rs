@@ -1,3 +1,6 @@
+#[path = "../../test_support/listed_contracts.rs"]
+mod listed_contracts;
+
 use crypto_market_type::MarketType;
 use crypto_rest_client::{fetch_l2_snapshot, fetch_open_interest};
 use serde_json::Value;
@@ -11,6 +14,8 @@ use test_case::test_case;
 #[test_case(MarketType::LinearSwap, "BTC-USDT-SWAP")]
 #[test_case(MarketType::EuropeanOption, "BTC-USD-221230-10000-P")]
 fn test_l2_snapshot(market_type: MarketType, symbol: &str) {
+    let current_symbol = listed_contracts::current_expiring_symbol("okx", market_type, symbol);
+    let symbol = current_symbol.as_str();
     let text = fetch_l2_snapshot("okx", market_type, symbol, Some(3)).unwrap();
     assert!(text.starts_with('{'));
 }
@@ -21,6 +26,8 @@ fn test_l2_snapshot(market_type: MarketType, symbol: &str) {
 #[test_case(MarketType::LinearSwap, "BTC-USDT-SWAP")]
 #[test_case(MarketType::EuropeanOption, "BTC-USD-221230-10000-P")]
 fn test_open_interest(market_type: MarketType, symbol: &str) {
+    let current_symbol = listed_contracts::current_expiring_symbol("okx", market_type, symbol);
+    let symbol = current_symbol.as_str();
     let text = fetch_open_interest("okx", market_type, Some(symbol)).unwrap();
     let json_obj = serde_json::from_str::<HashMap<String, Value>>(&text).unwrap();
     let arr = json_obj.get("data").unwrap().as_array().unwrap();

@@ -1,7 +1,10 @@
+#[path = "../../test_support/listed_contracts.rs"]
+mod listed_contracts;
+
 #[cfg(test)]
 mod inverse_swap {
     use crypto_market_type::MarketType;
-    use crypto_rest_client::{fetch_l2_snapshot, fetch_open_interest, BinanceInverseRestClient};
+    use crypto_rest_client::{BinanceInverseRestClient, fetch_l2_snapshot, fetch_open_interest};
 
     #[test]
     fn test_agg_trades() {
@@ -28,27 +31,52 @@ mod inverse_swap {
 #[cfg(test)]
 mod inverse_future {
     use crypto_market_type::MarketType;
-    use crypto_rest_client::{fetch_l2_snapshot, fetch_open_interest, BinanceInverseRestClient};
+    use crypto_rest_client::{BinanceInverseRestClient, fetch_l2_snapshot, fetch_open_interest};
 
     #[test]
     fn test_agg_trades() {
-        let text =
-            BinanceInverseRestClient::fetch_agg_trades("BTCUSD_221230", None, None, None).unwrap();
+        let text = BinanceInverseRestClient::fetch_agg_trades(
+            &crate::listed_contracts::current_expiring_symbol(
+                "binance",
+                crypto_market_type::MarketType::InverseFuture,
+                "BTCUSD_221230",
+            ),
+            None,
+            None,
+            None,
+        )
+        .unwrap();
         assert!(text.starts_with("[{"));
     }
 
     #[test]
     fn test_l2_snapshot() {
-        let text =
-            fetch_l2_snapshot("binance", MarketType::InverseFuture, "BTCUSD_221230", Some(3))
-                .unwrap();
+        let text = fetch_l2_snapshot(
+            "binance",
+            MarketType::InverseFuture,
+            &crate::listed_contracts::current_expiring_symbol(
+                "binance",
+                crypto_market_type::MarketType::InverseFuture,
+                "BTCUSD_221230",
+            ),
+            Some(3),
+        )
+        .unwrap();
         assert!(text.starts_with('{'));
     }
 
     #[test]
     fn test_open_interest() {
-        let text = fetch_open_interest("binance", MarketType::InverseFuture, Some("BTCUSD_221230"))
-            .unwrap();
+        let text = fetch_open_interest(
+            "binance",
+            MarketType::InverseFuture,
+            Some(&crate::listed_contracts::current_expiring_symbol(
+                "binance",
+                crypto_market_type::MarketType::InverseFuture,
+                "BTCUSD_221230",
+            )),
+        )
+        .unwrap();
         assert!(text.starts_with('{'));
     }
 }

@@ -21,7 +21,9 @@ async fn crawl_all(msg_type: MessageType) {
                 crawl_l2_event(EXCHANGE_NAME, MarketType::Unknown, None, tx).await;
             }
             MessageType::L2Snapshot => {
-                tokio::task::block_in_place(move || {
+                // The synchronous streaming REST loop owns an OS thread; it must not
+                // prevent the async test runtime from shutting down.
+                std::thread::spawn(move || {
                     crawl_l2_snapshot(EXCHANGE_NAME, MarketType::Unknown, None, tx);
                 });
             }
@@ -38,7 +40,9 @@ async fn crawl_all(msg_type: MessageType) {
         };
     });
 
-    let msg = rx.recv().unwrap();
+    let msg = rx
+        .recv_timeout(std::time::Duration::from_secs(30))
+        .expect("No live market message within 30 seconds");
 
     assert_eq!(msg.exchange, EXCHANGE_NAME.to_string());
     assert_eq!(msg.market_type, MarketType::Unknown);
@@ -82,7 +86,9 @@ async fn test_crawl_candlestick_rate_all() {
         crawl_candlestick(EXCHANGE_NAME, MarketType::Unknown, None, tx).await;
     });
 
-    let msg = rx.recv().unwrap();
+    let msg = rx
+        .recv_timeout(std::time::Duration::from_secs(30))
+        .expect("No live market message within 30 seconds");
 
     assert_eq!(msg.exchange, EXCHANGE_NAME.to_string());
     assert_eq!(msg.market_type, MarketType::Unknown);

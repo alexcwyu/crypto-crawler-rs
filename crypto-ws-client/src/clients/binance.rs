@@ -4,13 +4,13 @@ use std::{collections::HashMap, num::NonZeroU32};
 use tokio_tungstenite::tungstenite::Message;
 
 use crate::{
+    WSClient,
     common::{
         command_translator::CommandTranslator,
         message_handler::{MessageHandler, MiscMessage},
         utils::ensure_frame_size,
         ws_client_internal::WSClientInternal,
     },
-    WSClient,
 };
 use log::*;
 use serde_json::Value;
@@ -18,7 +18,8 @@ use serde_json::Value;
 pub(crate) const EXCHANGE_NAME: &str = "binance";
 
 const SPOT_WEBSOCKET_URL: &str = "wss://stream.binance.com:9443/stream";
-const LINEAR_WEBSOCKET_URL: &str = "wss://fstream.binance.com/stream";
+const LINEAR_WEBSOCKET_URL: &str = "wss://fstream.binance.com/public/stream";
+const LINEAR_MARKET_WEBSOCKET_URL: &str = "wss://fstream.binance.com/market/stream";
 const INVERSE_WEBSOCKET_URL: &str = "wss://dstream.binance.com/stream";
 
 // the websocket message size should not exceed 4096 bytes, otherwise
@@ -39,6 +40,7 @@ const UPLINK_LIMIT: (NonZeroU32, std::time::Duration) =
 pub struct BinanceWSClient<const MARKET_TYPE: char> {
     client: WSClientInternal<BinanceMessageHandler>,
     translator: BinanceCommandTranslator,
+    market_client: Option<WSClientInternal<BinanceMessageHandler>>,
 }
 
 /// Binance Spot market.
@@ -75,7 +77,24 @@ impl<const MARKET_TYPE: char> BinanceWSClient<MARKET_TYPE> {
                 }
             }
         };
+        // Binance separated futures depth/BBO and trade/ticker/kline streams in 2026.
+        // Explicit URL overrides preserve the single-endpoint client contract.
+        let market_client = if MARKET_TYPE == 'L' && url.is_none() {
+            Some(
+                WSClientInternal::connect(
+                    EXCHANGE_NAME,
+                    LINEAR_MARKET_WEBSOCKET_URL,
+                    BinanceMessageHandler {},
+                    Some(UPLINK_LIMIT),
+                    tx.clone(),
+                )
+                .await,
+            )
+        } else {
+            None
+        };
         BinanceWSClient {
+            market_client,
             client: WSClientInternal::connect(
                 EXCHANGE_NAME,
                 real_url,
@@ -85,6 +104,45 @@ impl<const MARKET_TYPE: char> BinanceWSClient<MARKET_TYPE> {
             )
             .await,
             translator: BinanceCommandTranslator { market_type: MARKET_TYPE },
+        }
+    }
+
+    async fn send_routed(&self, commands: &[String]) {
+        let Some(market_client) = &self.market_client else {
+            self.client.send(commands).await;
+            return;
+        };
+        let mut public_commands = Vec::new();
+        let mut market_commands = Vec::new();
+        for command in commands {
+            let Ok(value) = serde_json::from_str::<Value>(command) else {
+                public_commands.push(command.clone());
+                continue;
+            };
+            let Some(params) = value.get("params").and_then(Value::as_array) else {
+                public_commands.push(command.clone());
+                continue;
+            };
+            let (public, market): (Vec<_>, Vec<_>) = params.iter().cloned().partition(|param| {
+                let channel = param.as_str().unwrap_or_default();
+                channel.contains("@depth")
+                    || channel.contains("bookTicker")
+                    || channel.contains("@rpiDepth")
+            });
+            for (params, target) in [(public, &mut public_commands), (market, &mut market_commands)]
+            {
+                if !params.is_empty() {
+                    let mut routed = value.clone();
+                    routed["params"] = Value::Array(params);
+                    target.push(routed.to_string());
+                }
+            }
+        }
+        if !public_commands.is_empty() {
+            self.client.send(&public_commands).await;
+        }
+        if !market_commands.is_empty() {
+            market_client.send(&market_commands).await;
         }
     }
 }
@@ -138,29 +196,36 @@ impl<const URL: char> WSClient for BinanceWSClient<URL> {
     async fn subscribe_candlestick(&self, symbol_interval_list: &[(String, usize)]) {
         let commands =
             self.translator.translate_to_candlestick_commands(true, symbol_interval_list);
-        self.client.send(&commands).await;
+        self.send_routed(&commands).await;
     }
 
     async fn subscribe(&self, topics: &[(String, String)]) {
         let commands = self.translator.translate_to_commands(true, topics);
-        self.client.send(&commands).await;
+        self.send_routed(&commands).await;
     }
 
     async fn unsubscribe(&self, topics: &[(String, String)]) {
         let commands = self.translator.translate_to_commands(false, topics);
-        self.client.send(&commands).await;
+        self.send_routed(&commands).await;
     }
 
     async fn send(&self, commands: &[String]) {
-        self.client.send(commands).await;
+        self.send_routed(commands).await;
     }
 
     async fn run(&self) {
-        self.client.run().await;
+        if let Some(market_client) = &self.market_client {
+            tokio::join!(self.client.run(), market_client.run());
+        } else {
+            self.client.run().await;
+        }
     }
 
     async fn close(&self) {
         self.client.close().await;
+        if let Some(market_client) = &self.market_client {
+            market_client.close().await;
+        }
     }
 }
 

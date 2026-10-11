@@ -29,6 +29,10 @@ async fn test_crawl_trade_all(market_type: MarketType) {
 // #[test_case(MarketType::EuropeanOption, "BTC-USD-221230-10000-P"; "ignore")]
 #[tokio::test(flavor = "multi_thread")]
 async fn test_crawl_trade(market_type: MarketType, symbol: &str) {
+    let current_symbol = tokio::task::block_in_place(|| {
+        utils::current_expiring_symbol(EXCHANGE_NAME, market_type, symbol)
+    });
+    let symbol = current_symbol.as_str();
     test_one_symbol!(crawl_trade, EXCHANGE_NAME, market_type, symbol, MessageType::Trade)
 }
 
@@ -40,6 +44,10 @@ async fn test_crawl_trade(market_type: MarketType, symbol: &str) {
 #[test_case(MarketType::EuropeanOption, "BTC-USD-221230-10000-P")]
 #[tokio::test(flavor = "multi_thread")]
 async fn test_crawl_l2_event(market_type: MarketType, symbol: &str) {
+    let current_symbol = tokio::task::block_in_place(|| {
+        utils::current_expiring_symbol(EXCHANGE_NAME, market_type, symbol)
+    });
+    let symbol = current_symbol.as_str();
     test_one_symbol!(crawl_l2_event, EXCHANGE_NAME, market_type, symbol, MessageType::L2Event)
 }
 
@@ -51,6 +59,10 @@ async fn test_crawl_l2_event(market_type: MarketType, symbol: &str) {
 #[test_case(MarketType::EuropeanOption, "BTC-USD-221230-10000-P")]
 #[tokio::test(flavor = "multi_thread")]
 async fn test_crawl_l2_topk(market_type: MarketType, symbol: &str) {
+    let current_symbol = tokio::task::block_in_place(|| {
+        utils::current_expiring_symbol(EXCHANGE_NAME, market_type, symbol)
+    });
+    let symbol = current_symbol.as_str();
     test_one_symbol!(crawl_l2_topk, EXCHANGE_NAME, market_type, symbol, MessageType::L2TopK)
 }
 
@@ -61,6 +73,8 @@ async fn test_crawl_l2_topk(market_type: MarketType, symbol: &str) {
 #[test_case(MarketType::LinearSwap, "BTC-USDT-SWAP")]
 #[test_case(MarketType::EuropeanOption, "BTC-USD-221230-10000-P")]
 fn test_crawl_l2_snapshot(market_type: MarketType, symbol: &str) {
+    let current_symbol = utils::current_expiring_symbol(EXCHANGE_NAME, market_type, symbol);
+    let symbol = current_symbol.as_str();
     test_crawl_restful!(
         crawl_l2_snapshot,
         EXCHANGE_NAME,
@@ -89,6 +103,10 @@ fn test_crawl_l2_snapshot_without_symbol(market_type: MarketType) {
 #[test_case(MarketType::LinearSwap, "BTC-USDT-SWAP")]
 #[tokio::test(flavor = "multi_thread")]
 async fn test_crawl_funding_rate(market_type: MarketType, symbol: &str) {
+    let current_symbol = tokio::task::block_in_place(|| {
+        utils::current_expiring_symbol(EXCHANGE_NAME, market_type, symbol)
+    });
+    let symbol = current_symbol.as_str();
     test_one_symbol!(
         crawl_funding_rate,
         EXCHANGE_NAME,
@@ -109,7 +127,9 @@ fn test_crawl_open_interest(market_type: MarketType) {
         crawl_open_interest(EXCHANGE_NAME, market_type, tx);
     });
 
-    let msg = rx.recv().unwrap();
+    let msg = rx
+        .recv_timeout(std::time::Duration::from_secs(30))
+        .expect("No live market message within 30 seconds");
 
     assert_eq!(msg.exchange, EXCHANGE_NAME.to_string());
     assert_eq!(msg.market_type, market_type);
@@ -126,6 +146,10 @@ fn test_crawl_open_interest(market_type: MarketType) {
 #[test_case(MarketType::EuropeanOption, "BTC-USD-221230-10000-P")]
 #[tokio::test(flavor = "multi_thread")]
 async fn test_crawl_ticker(market_type: MarketType, symbol: &str) {
+    let current_symbol = tokio::task::block_in_place(|| {
+        utils::current_expiring_symbol(EXCHANGE_NAME, market_type, symbol)
+    });
+    let symbol = current_symbol.as_str();
     test_one_symbol!(crawl_ticker, EXCHANGE_NAME, market_type, symbol, MessageType::Ticker)
 }
 

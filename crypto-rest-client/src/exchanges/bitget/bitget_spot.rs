@@ -24,6 +24,7 @@ impl BitgetSpotRestClient {
     ///
     /// For example: <https://api.bitget.com/api/spot/v1/market/depth?symbol=BTCUSDT_SPBL&type=step0>,
     pub fn fetch_l2_snapshot(symbol: &str) -> Result<String> {
-        gen_api!(format!("/api/spot/v1/market/depth?symbol={symbol}&type=step0"))
+        let symbol = symbol.strip_suffix("_SPBL").unwrap_or(symbol);
+        gen_api!(format!("/api/v2/spot/market/orderbook?symbol={symbol}&type=step0&limit=150"))
     }
 }

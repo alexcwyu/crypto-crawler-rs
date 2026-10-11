@@ -1,16 +1,16 @@
 use std::{
-    sync::{mpsc::Sender, Arc},
+    sync::{Arc, mpsc::Sender},
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
 
 use crate::utils::{REST_LOCKS, WS_LOCKS};
-use crypto_market_type::{get_market_types, MarketType};
+use crypto_market_type::{MarketType, get_market_types};
 use crypto_markets::fetch_symbols;
 use crypto_rest_client::{fetch_l2_snapshot, fetch_l3_snapshot, fetch_open_interest};
 use crypto_ws_client::*;
 use log::*;
 
-use crate::{get_hot_spot_symbols, utils::cmc_rank::sort_by_cmc_rank, Message, MessageType};
+use crate::{Message, MessageType, get_hot_spot_symbols, utils::cmc_rank::sort_by_cmc_rank};
 
 pub fn fetch_symbols_retry(exchange: &str, market_type: MarketType) -> Vec<String> {
     let retry_count = std::env::var("REST_RETRY_COUNT")
@@ -361,6 +361,9 @@ fn get_num_subscriptions_per_connection(exchange: &str, market_type: MarketType)
         // All websocket connections have a limit of 30 subscriptions to public market data feed
         // channels
         "bitfinex" => 30, // https://docs.bitfinex.com/docs/ws-general#subscribe-to-channels
+        // Bitget recommends fewer than 50 channels per connection. Reuse the
+        // existing chunking path rather than bursting hundreds of subscriptions.
+        "bitget" => 49,
         "kucoin" => 300, /* Subscription limit for each connection: 300 topics, see https://docs.kucoin.com/#topic-subscription-limit */
         "okx" => 256,    // okx spot l2_event throws many ResetWithoutClosingHandshake errors
         _ => usize::MAX, // usize::MAX means unlimited
@@ -612,7 +615,9 @@ pub(crate) fn create_conversion_thread(
     tx: Sender<Message>,
 ) -> Sender<String> {
     let (tx_raw, rx_raw) = std::sync::mpsc::channel();
-    tokio::task::spawn_blocking(move || {
+    // This converter waits on a synchronous channel; it must not occupy a Tokio
+    // blocking worker whose runtime shutdown waits for the channel indefinitely.
+    std::thread::spawn(move || {
         for json in rx_raw {
             let msg = Message::new(exchange.clone(), market_type, msg_type, json);
             if tx.send(msg).is_err() {
