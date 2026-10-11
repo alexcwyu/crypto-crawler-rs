@@ -1,3 +1,4 @@
+// AYU maintenance: classify and normalize current Bybit USDC PERP symbols; see AYU-PATCH.md.
 use crypto_market_type::MarketType;
 
 pub(crate) fn normalize_pair(symbol: &str) -> Option<String> {
@@ -5,6 +6,8 @@ pub(crate) fn normalize_pair(symbol: &str) -> Option<String> {
         // linear swap
         let base = symbol.strip_suffix("USDT").unwrap();
         (base, "USDT")
+    } else if symbol.ends_with("PERP") {
+        (symbol.strip_suffix("PERP").unwrap(), "USDC")
     } else if symbol.ends_with("USD") {
         // inverse swap
         let base = symbol.strip_suffix("USD").unwrap();
@@ -20,7 +23,7 @@ pub(crate) fn normalize_pair(symbol: &str) -> Option<String> {
 }
 
 pub(crate) fn get_market_type(symbol: &str) -> MarketType {
-    if symbol.ends_with("USDT") {
+    if symbol.ends_with("USDT") || symbol.ends_with("PERP") {
         MarketType::LinearSwap
     } else if symbol.ends_with("USD") {
         MarketType::InverseSwap

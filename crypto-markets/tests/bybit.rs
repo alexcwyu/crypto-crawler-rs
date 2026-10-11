@@ -28,7 +28,7 @@ fn fetch_linear_swap_symbols() {
     let symbols = fetch_symbols(EXCHANGE_NAME, MarketType::LinearSwap).unwrap();
     assert!(!symbols.is_empty());
     for symbol in symbols.iter() {
-        assert!(symbol.ends_with("USDT"));
+        assert!(symbol.ends_with("USDT") || symbol.ends_with("PERP"));
         assert_eq!(MarketType::LinearSwap, get_market_type(symbol, EXCHANGE_NAME, None));
     }
 }
@@ -53,11 +53,11 @@ fn fetch_inverse_swap_markets() {
     }
 
     let btcusd = markets.iter().find(|m| m.symbol == "BTCUSD").unwrap().clone();
-    assert_eq!(btcusd.precision.tick_size, 0.5);
+    assert_eq!(btcusd.precision.tick_size, 0.1);
     assert_eq!(btcusd.precision.lot_size, 1.0);
     let quantity_limit = btcusd.quantity_limit.unwrap();
     assert_eq!(quantity_limit.min.unwrap(), 1.0);
-    assert_eq!(quantity_limit.max, Some(1000000.0));
+    assert_eq!(quantity_limit.max, Some(25000000.0));
 }
 
 #[test]
@@ -73,7 +73,7 @@ fn fetch_linear_swap_markets() {
     assert_eq!(btcusdt.precision.lot_size, 0.001);
     let quantity_limit = btcusdt.quantity_limit.unwrap();
     assert_eq!(quantity_limit.min.unwrap(), 0.001);
-    assert_eq!(quantity_limit.max, Some(100.0));
+    assert_eq!(quantity_limit.max, Some(1500.0));
 }
 
 #[test]
@@ -89,7 +89,7 @@ fn fetch_inverse_future_markets() {
     assert_eq!(btcusd.precision.lot_size, 1.0);
     let quantity_limit = btcusd.quantity_limit.unwrap();
     assert_eq!(quantity_limit.min.unwrap(), 1.0);
-    assert_eq!(quantity_limit.max, Some(1000000.0));
+    assert_eq!(quantity_limit.max, Some(5000000.0));
 }
 
 #[test_case(MarketType::InverseFuture)]
