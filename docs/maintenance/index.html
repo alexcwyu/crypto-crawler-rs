@@ -142,11 +142,39 @@ th,td{min-width:120px;overflow-wrap:normal}
 <td>See exit status; no test-count assertion.</td>
 </tr>
 <tr>
+<td>bybit-v5-complete-crawler-maintained-fixtures</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">38.87s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-crawler --test bybit --locked -- --test-threads=8</code></td>
+<td>test result: FAILED. 19 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 32.66s</td>
+</tr>
+<tr>
+<td>bybit-v5-complete-maintained-all-target-build</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">73.76s</td>
+<td><code>cargo build --workspace --all-targets --locked</code></td>
+<td>See exit status; no test-count assertion.</td>
+</tr>
+<tr>
+<td>bybit-v5-complete-maintained-native-unit-tests</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">18.16s</td>
+<td><code>cargo test --workspace --lib --locked</code></td>
+<td>test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.74s<br>test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 3 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.46s<br>test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s<br>test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s</td>
+</tr>
+<tr>
 <td>bybit-v5-complete-native-unit-tests</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">18.18s</td>
 <td><code>cargo test --workspace --lib --locked</code></td>
 <td>test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.36s<br>test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 3 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.43s<br>test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s</td>
+</tr>
+<tr>
+<td>bybit-v5-current-crawler-original-tests</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">38.33s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-crawler --test bybit --locked -- --test-threads=8</code></td>
+<td>test result: FAILED. 18 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 32.74s</td>
 </tr>
 <tr>
 <td>bybit-v5-current-metadata-existing-tests</td>
@@ -156,6 +184,48 @@ th,td{min-width:120px;overflow-wrap:normal}
 <td>test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.48s</td>
 </tr>
 <tr>
+<td>bybit-v5-current-rest-original-tests</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2.37s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-rest-client --test bybit --locked -- --test-threads=8</code></td>
+<td>test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.78s</td>
+</tr>
+<tr>
+<td>bybit-v5-existing-crawler-real-metadata</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">5.75s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-crawler --test bybit --locked -- --test-threads=8</code></td>
+<td>See exit status; no test-count assertion.</td>
+</tr>
+<tr>
+<td>bybit-v5-existing-public-rest-suite</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">6.45s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-rest-client --test bybit --locked -- --test-threads=8</code></td>
+<td>See exit status; no test-count assertion.</td>
+</tr>
+<tr>
+<td>bybit-v5-existing-websocket-real-metadata</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">63.72s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-ws-client --test bybit --locked -- --test-threads=8</code></td>
+<td>test result: FAILED. 13 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 60.79s</td>
+</tr>
+<tr>
+<td>bybit-v5-original-crawler-suite</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">90.59s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-crawler --test bybit --locked -- --test-threads=8</code></td>
+<td>test result: FAILED. 11 passed; 10 failed; 0 ignored; 0 measured; 0 filtered out; finished in 75.10s</td>
+</tr>
+<tr>
+<td>bybit-v5-original-legacy-parser-fixtures</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.2s</td>
+<td><code>cargo test -p crypto-msg-parser --test bybit --locked</code></td>
+<td>test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s</td>
+</tr>
+<tr>
 <td>bybit-v5-original-metadata-tests</td>
 <td style="text-align: right;">101</td>
 <td style="text-align: right;">5.49s</td>
@@ -163,11 +233,32 @@ th,td{min-width:120px;overflow-wrap:normal}
 <td>test result: FAILED. 6 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s</td>
 </tr>
 <tr>
+<td>bybit-v5-original-parser-regression-tests</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">23.02s</td>
+<td><code>cargo test -p crypto-msg-parser --locked -- --test-threads=8</code></td>
+<td>test result: ok. 2 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.25s<br>test result: ok. 22 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s<br>test result: ok. 36 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.50s<br>test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: FAILED. 21 passed; 11 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.29s</td>
+</tr>
+<tr>
+<td>bybit-v5-original-websocket-suite</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">15.39s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-ws-client --test bybit --locked -- --test-threads=8</code></td>
+<td>test result: FAILED. 10 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.24s</td>
+</tr>
+<tr>
 <td>bybit-v5-pair-original-unit-tests</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">3.13s</td>
 <td><code>cargo test -p crypto-pair --lib --locked</code></td>
 <td>test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.24s</td>
+</tr>
+<tr>
+<td>bybit-v5-websocket-native-unit-tests</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15.9s</td>
+<td><code>cargo test --workspace --lib --locked</code></td>
+<td>test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.91s<br>test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 3 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.43s<br>test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.44s</td>
 </tr>
 <tr>
 <td>coinbase-current-public-level2-existing-test</td>

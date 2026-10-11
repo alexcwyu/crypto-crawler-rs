@@ -1,6 +1,6 @@
 {
   "repository": "crypto-crawler-rs",
-  "source_commit_before_documentation_commit": "6c0ca27c8148edbea2a35638ec2c49f64d8ce1ae",
+  "source_commit_before_documentation_commit": "1c8ff88b68e30788d3859a6efbce647c1ac67b12",
   "recorded_on": "2026-10-12",
   "records": [
     {
@@ -376,6 +376,85 @@
     },
     {
       "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bybit",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 38.87,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "8e9102b94343254bfbf233f97bc2f4007f041ab870a0c298eb21996d1dc3ae99",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-complete-crawler-maintained-fixtures",
+      "original_log": "crypto-crawler-rs-bybit-v5-complete-crawler-maintained-fixtures.log",
+      "log_sha256": "8c9017c129b333ae98acc6657105d228a1a985d298a1856c049e297b19176e67",
+      "outcomes": [
+        "test result: FAILED. 19 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 32.66s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--all-targets",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 73.76,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "8e9102b94343254bfbf233f97bc2f4007f041ab870a0c298eb21996d1dc3ae99",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-complete-maintained-all-target-build",
+      "original_log": "crypto-crawler-rs-bybit-v5-complete-maintained-all-target-build.log",
+      "log_sha256": "a9613f5adb4eee2e03c512ddb36df9685895bd9a192e3d3f21e1d84c668180f8",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--lib",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 18.16,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "8e9102b94343254bfbf233f97bc2f4007f041ab870a0c298eb21996d1dc3ae99",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-complete-maintained-native-unit-tests",
+      "original_log": "crypto-crawler-rs-bybit-v5-complete-maintained-native-unit-tests.log",
+      "log_sha256": "d06e7d7c8733de840ac39f664e93c10257b906afa59b213287f2094deab30851",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.74s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 3 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.46s",
+        "test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+        "test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s"
+      ]
+    },
+    {
+      "command": [
         "cargo",
         "test",
         "--workspace",
@@ -401,6 +480,35 @@
         "test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
         "test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s",
         "test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bybit",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 38.33,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "853ebd8124f1570df2679ea7d397f993a8686d96a57678bbe6a2d5905cd46e91",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-current-crawler-original-tests",
+      "original_log": "crypto-crawler-rs-bybit-v5-current-crawler-original-tests.log",
+      "log_sha256": "4a4fc68ae51f43bba322267daa759f71967e070b57d6ba7317a5a00a60ec98d5",
+      "outcomes": [
+        "test result: FAILED. 18 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 32.74s"
       ]
     },
     {
@@ -439,6 +547,172 @@
         "cargo",
         "test",
         "-p",
+        "crypto-rest-client",
+        "--test",
+        "bybit",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 2.37,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "853ebd8124f1570df2679ea7d397f993a8686d96a57678bbe6a2d5905cd46e91",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-current-rest-original-tests",
+      "original_log": "crypto-crawler-rs-bybit-v5-current-rest-original-tests.log",
+      "log_sha256": "eec32fde371d6d863838b502e191d745cdf96fa1f7ce3949c2cd3c60b13bf201",
+      "outcomes": [
+        "test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.78s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bybit",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 5.75,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "d3e91a580b908eac35a3287bc018e39119ac522c2a3105bd7121da43be96f695",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-existing-crawler-real-metadata",
+      "original_log": "crypto-crawler-rs-bybit-v5-existing-crawler-real-metadata.log",
+      "log_sha256": "2f0454d8343e473ca69b3cd4c659ee277c97ebdb2c229035b4b680bf8dc0e63b",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "bybit",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 6.45,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "d3e91a580b908eac35a3287bc018e39119ac522c2a3105bd7121da43be96f695",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-existing-public-rest-suite",
+      "original_log": "crypto-crawler-rs-bybit-v5-existing-public-rest-suite.log",
+      "log_sha256": "2d84c0605640e77bdb63a4bb5c867b3dd8844fce31d524e8f37b9b7d8f12c6bb",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "bybit",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 63.72,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "96bc7bdd975004b5cbbeb36024589415e149d1c75828da9d09c1589dff68df86",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-existing-websocket-real-metadata",
+      "original_log": "crypto-crawler-rs-bybit-v5-existing-websocket-real-metadata.log",
+      "log_sha256": "72695522d0df3ca185f4773898e1f7834b7454844825c88a59cf047501b8b3c9",
+      "outcomes": [
+        "test result: FAILED. 13 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 60.79s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bybit",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 90.59,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "f1eafe07510d0991ffb7729d36110f3b3549b066abb2f545d2d111df0aa7a226",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-original-crawler-suite",
+      "original_log": "crypto-crawler-rs-bybit-v5-original-crawler-suite.log",
+      "log_sha256": "dce611551cd41597d04904ee1c41562781e7ad195ee9e21885151031d85d003f",
+      "outcomes": [
+        "test result: FAILED. 11 passed; 10 failed; 0 ignored; 0 measured; 0 filtered out; finished in 75.10s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-msg-parser",
+        "--test",
+        "bybit",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "96bc7bdd975004b5cbbeb36024589415e149d1c75828da9d09c1589dff68df86",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-original-legacy-parser-fixtures",
+      "original_log": "crypto-crawler-rs-bybit-v5-original-legacy-parser-fixtures.log",
+      "log_sha256": "af41e0c5cbd42d4fbb1f9889a8c7b268362866dcfcb5dbfe409edd11439f1621",
+      "outcomes": [
+        "test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
         "crypto-markets",
         "--test",
         "bybit",
@@ -466,6 +740,65 @@
         "cargo",
         "test",
         "-p",
+        "crypto-msg-parser",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 23.02,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "f1eafe07510d0991ffb7729d36110f3b3549b066abb2f545d2d111df0aa7a226",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-original-parser-regression-tests",
+      "original_log": "crypto-crawler-rs-bybit-v5-original-parser-regression-tests.log",
+      "log_sha256": "94b2946f08a3c05dec35c320f62f3b73f3cc720757b18466005d4ded17174ef8",
+      "outcomes": [
+        "test result: ok. 2 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.25s",
+        "test result: ok. 22 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s",
+        "test result: ok. 36 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.50s",
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: FAILED. 21 passed; 11 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.29s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "bybit",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 15.39,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "758d7f83a2344685fb219c077d46cb9d279d25987cb77a209b82869300af59a5",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-original-websocket-suite",
+      "original_log": "crypto-crawler-rs-bybit-v5-original-websocket-suite.log",
+      "log_sha256": "845d8b324e7e2fa528d4275cdf0c0549750f576372066b7e483cf0868bb145f3",
+      "outcomes": [
+        "test result: FAILED. 10 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.24s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
         "crypto-pair",
         "--lib",
         "--locked"
@@ -483,6 +816,35 @@
       "log_sha256": "2b232a0e2c0464377512273a4eaa8d86fb4cd35417e14cc37459a55c13bd4209",
       "outcomes": [
         "test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.24s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--lib",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 15.9,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "5efacdf5b75c1d4b7aebbed41a1c5d5263f94a0d",
+        "tracked_source_diff_sha256": "862df62f487a6fd85bf68fbd74ac5c5cacec7e8d1b0ca08b78d446394df9dae7",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bybit-v5-websocket-native-unit-tests",
+      "original_log": "crypto-crawler-rs-bybit-v5-websocket-native-unit-tests.log",
+      "log_sha256": "04ca5f80611a4caaec9b1cac3937d28de4c7daf2077b320b24ecd30864477bfa",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.91s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 3 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.43s",
+        "test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.44s"
       ]
     },
     {
