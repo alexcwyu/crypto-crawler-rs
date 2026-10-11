@@ -1,0 +1,3555 @@
+{
+  "repository": "crypto-crawler-rs",
+  "source_commit_before_documentation_commit": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+  "recorded_on": "2026-10-12",
+  "records": [
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "RUST_LOG=warn",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitget",
+        "test_crawl_trade_all::_markettype_linearswap",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "seconds": 5.65,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "bitget-v2-all-symbols-diagnostic",
+      "original_log": "crypto-crawler-rs-bitget-v2-all-symbols-diagnostic.log",
+      "log_sha256": "492a1fd8273937c9ad418692d66d6ca291cc552c84a7df6fb78fa7e8216bdcba",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 19 filtered out; finished in 1.33s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "RUST_LOG=warn",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitget",
+        "_markettype_linearswap",
+        "--",
+        "--test-threads=4"
+      ],
+      "exit_code": 0,
+      "seconds": 12.76,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "bitget-v2-bounded-channel-existing-linear-tests",
+      "original_log": "crypto-crawler-rs-bitget-v2-bounded-channel-existing-linear-tests.log",
+      "log_sha256": "244b8adf6fc28fe77c94cc2f2328df0d6500582b901dc95dcc8ace5b35174687",
+      "outcomes": [
+        "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 12 filtered out; finished in 4.90s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "bitget",
+        "fetch_linear_swap_symbols",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "seconds": 52.04,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "bitget-v2-existing-linear-symbols",
+      "original_log": "crypto-crawler-rs-bitget-v2-existing-linear-symbols.log",
+      "log_sha256": "3081b5f8a12828187f67d94705428705caffb6223ed282ae7742716eb0903342",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.51s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--lib",
+        "clients::bitget"
+      ],
+      "exit_code": 0,
+      "seconds": 72.46,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "bitget-v2-existing-wire-commands",
+      "original_log": "crypto-crawler-rs-bitget-v2-existing-wire-commands.log",
+      "log_sha256": "f122400121803bee85a3d2b40c98556b6ed51452a37b630925d7c90f5bae6a31",
+      "outcomes": [
+        "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 58 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitget",
+        "_markettype_linearswap",
+        "--",
+        "--test-threads=4"
+      ],
+      "exit_code": 101,
+      "seconds": 21.08,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "bitget-v2-supported-existing-tests",
+      "original_log": "crypto-crawler-rs-bitget-v2-supported-existing-tests.log",
+      "log_sha256": "c9c090da15ea8b57a336cb704e3bfc244bf2d63947ed99a03bb2134fbf8e797d",
+      "outcomes": [
+        "test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 12 filtered out; finished in 5.01s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--no-fail-fast",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": -15,
+      "seconds": 607.66,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "interruption_reason": "Stopped only this process group after repeated BitMEX runtime-shutdown stalls. Source diagnosis identified the synchronous channel converter occupying an uninterruptible Tokio blocking worker; a native-thread ownership repair is under focused verification.",
+      "check": "bounded-all-existing-tests",
+      "original_log": "crypto-crawler-rs-bounded-all-existing-tests.log",
+      "log_sha256": "beaa1de0697d26d7fa6688b3040e7176989193d88c5bc9695eadff4c83d3f24f",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.53s",
+        "test result: FAILED. 46 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 45.47s",
+        "test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 45.17s",
+        "test result: FAILED. 0 passed; 20 failed; 0 ignored; 0 measured; 0 filtered out; finished in 159.91s",
+        "test result: FAILED. 0 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 40.50s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--doc"
+      ],
+      "exit_code": 101,
+      "seconds": 33.67,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "05cd86cb11ab2a4a8f2f4fc1d446925d52ff8ebaf81028d86ab42f4dcb864bc9",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "bounded-live-existing-documentation-tests",
+      "original_log": "crypto-crawler-rs-bounded-live-existing-documentation-tests.log",
+      "log_sha256": "5ab1a245134432f6a6544bd8fe0e330303c447e368a0e9391cce8815e2d902b6",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: FAILED. 9 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 31.49s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "binance"
+      ],
+      "exit_code": 101,
+      "seconds": 64.3,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "bounded-live-integration",
+      "original_log": "crypto-crawler-rs-bounded-live-integration.log",
+      "log_sha256": "fe983a12e5aa1b06ccfae0eeafc6561684dbfdf48ce5f3e58f474be55385b4b9",
+      "outcomes": [
+        "test result: FAILED. 28 passed; 19 failed; 0 ignored; 0 measured; 0 filtered out; finished in 39.37s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--all-targets"
+      ],
+      "exit_code": 101,
+      "seconds": 75.47,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "build",
+      "original_log": "crypto-crawler-rs-build.log",
+      "log_sha256": "8438d7968d1da493dd30830e1e921ee1a96bfef9b89243992fa4ccc5072c1a02",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "seconds": 155.51,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "build-compatible",
+      "original_log": "crypto-crawler-rs-build-compatible.log",
+      "log_sha256": "96ec5f9808a75e06455af9afd7519b53b29d7c2750d9abaa9dfed2f12837de81",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "coinbase_pro",
+        "test_crawl_l2_event",
+        "--",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "seconds": 10.81,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "coinbase-current-public-level2-existing-test",
+      "original_log": "crypto-crawler-rs-coinbase-current-public-level2-existing-test.log",
+      "log_sha256": "8be70ceed53dad8557322371e1e765d37ea10a2cecb30198a9b30cc583daeae1",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 3.25s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--doc",
+        "--no-fail-fast"
+      ],
+      "exit_code": 101,
+      "seconds": 48.52,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "complete-bounded-existing-documentation-targets",
+      "original_log": "crypto-crawler-rs-complete-bounded-existing-documentation-targets.log",
+      "log_sha256": "705facb3709a60f35b0bba1c18877949757883fdced0edd19a3e8bff9cc43a08",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: FAILED. 9 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 31.64s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.58s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.11s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitmex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 124,
+      "seconds": 180.01,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "converter-ownership-bitmex-tests",
+      "original_log": "crypto-crawler-rs-converter-ownership-bitmex-tests.log",
+      "log_sha256": "4df8fc1e767ed89669d74279ce283bd93d24bc625b8c65b41f958051cadeaba2",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "binance",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 53.62,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "current-contract-integration",
+      "original_log": "crypto-crawler-rs-current-contract-integration.log",
+      "log_sha256": "5eb914ef3e9180932348d92d7825faec0e179ab8f7a2cbd14e7ea641b67e14bb",
+      "outcomes": [
+        "test result: FAILED. 30 passed; 17 failed; 0 ignored; 0 measured; 0 filtered out; finished in 49.70s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "binance",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 53.78,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "current-integration-crypto-crawler-binance",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-binance.log",
+      "log_sha256": "3c0a5f02878682570964182ff82fd8c9dfb06fe32a382a7268ac02dd98da3f9d",
+      "outcomes": [
+        "test result: FAILED. 45 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 44.77s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitfinex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 49.7,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "current-integration-crypto-crawler-bitfinex",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-bitfinex.log",
+      "log_sha256": "ab83b84bffb1c106f4dfa561b597a705b7741c0027e8d217577332aff4db7f01",
+      "outcomes": [
+        "test result: FAILED. 17 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 45.62s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitget",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 31.22,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "current-integration-crypto-crawler-bitget",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-bitget.log",
+      "log_sha256": "51ff02853fd595e95f89dee900ef60a7d03a17053982e7f5e076374d9d2440bb",
+      "outcomes": [
+        "test result: FAILED. 10 passed; 10 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.76s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bithumb",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 33.55,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "current-integration-crypto-crawler-bithumb",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-bithumb.log",
+      "log_sha256": "5c52286397f4befcb42cba24063093c3ebd5669914977210457288234c2ee58c",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitmex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 31.68,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "current-integration-crypto-crawler-bitmex",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-bitmex.log",
+      "log_sha256": "5e798aa9abd631c997e548e06b8c628c60e85bb524947db77495eeca6828f377",
+      "outcomes": [
+        "test result: FAILED. 6 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.01s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitstamp",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 8.54,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "current-integration-crypto-crawler-bitstamp",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-bitstamp.log",
+      "log_sha256": "7e3157d00759e65cc7dbcffdd31bd0cdf1bc9e299f338541fcd76e284d5caf90",
+      "outcomes": [
+        "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.28s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitz",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 3.36,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "current-integration-crypto-crawler-bitz",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-bitz.log",
+      "log_sha256": "e413eddbf0f3399218ff4523c63e970031fbadefac825480b50ecb37a0ea587b",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 10 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bybit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 35.9,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "current-integration-crypto-crawler-bybit",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-bybit.log",
+      "log_sha256": "fae5c3065e8e0d33217d84d23dd9300b066e5ad3ee1bcd4fa9fbcab4b9d3915d",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 21 failed; 0 ignored; 0 measured; 0 filtered out; finished in 32.02s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "coinbase_pro",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 34.26,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-coinbase_pro",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-coinbase_pro.log",
+      "log_sha256": "55b5a2a68bc2f6d66aacf7d9db22590c7f2d5c9ff9321414593655d155ec3708",
+      "outcomes": [
+        "test result: FAILED. 6 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.01s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "deribit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 32.62,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-deribit",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-deribit.log",
+      "log_sha256": "d878dacd365e98630ca75e9b0ff571334da9b5cac6aa9727138a9004e1f804f2",
+      "outcomes": [
+        "test result: FAILED. 14 passed; 10 failed; 1 ignored; 0 measured; 0 filtered out; finished in 28.93s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "dydx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 32.7,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-dydx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-dydx.log",
+      "log_sha256": "55682bc70c87f9ee81a1433261b7797b1feb27323fa880ded0ac11309ba395f0",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "ftx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 124,
+      "seconds": 120.01,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-ftx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-ftx.log",
+      "log_sha256": "dbdf3688c2002493450e2bb823036cc67f4bc18e6f1ee9f58597b20cac0841a6",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "gate",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 40.73,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-gate",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-gate.log",
+      "log_sha256": "d6e023926cad7ec97379294476e09160a98f9426e1868612c5dc1d957663d99e",
+      "outcomes": [
+        "test result: FAILED. 21 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 36.85s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "huobi",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 10.17,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-huobi",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-huobi.log",
+      "log_sha256": "2b3fb64e42bd4092d8792e6e12b0055512c2adbe55434a4741c9e6df5cb5c134",
+      "outcomes": [
+        "test result: FAILED. 15 passed; 23 failed; 8 ignored; 0 measured; 0 filtered out; finished in 6.18s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "kraken",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 34.61,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-kraken",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-kraken.log",
+      "log_sha256": "ba56b4fa601a6f964b9d760a548fc4574e2811d1b072a9345c5a53c25b1aa1e2",
+      "outcomes": [
+        "test result: FAILED. 6 passed; 14 failed; 0 ignored; 0 measured; 0 filtered out; finished in 31.04s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "kucoin",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 66.76,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-kucoin",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-kucoin.log",
+      "log_sha256": "76356ced9ba39fedc36b0918a4e2ae63d2b93095fabfea92da419c8becbd06cd",
+      "outcomes": [
+        "test result: FAILED. 23 passed; 12 failed; 0 ignored; 0 measured; 0 filtered out; finished in 62.37s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "mexc",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 36.06,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-mexc",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-mexc.log",
+      "log_sha256": "001d7ef0f81493f5a05f1ec2bcf92d1015cc06602954f96a8456a82c7b59642d",
+      "outcomes": [
+        "test result: FAILED. 4 passed; 19 failed; 0 ignored; 0 measured; 0 filtered out; finished in 31.31s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "okx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 61.7,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-okx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-okx.log",
+      "log_sha256": "88a20ccbc8d253f9b55c9d4c974718e9e175fef3d9b508cd9a70cd6411bfbcda",
+      "outcomes": [
+        "test result: FAILED. 32 passed; 22 failed; 0 ignored; 0 measured; 0 filtered out; finished in 58.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "zb",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 35.97,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "05cd86cb11ab2a4a8f2f4fc1d446925d52ff8ebaf81028d86ab42f4dcb864bc9",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-zb",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-zb.log",
+      "log_sha256": "1de96a7b4dfd791fa7705ca89288acb2e152489be1a3f8f62a88d618bf337f54",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 15 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.01s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "zbg",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 36.44,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-crawler-zbg",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-crawler-zbg.log",
+      "log_sha256": "95a230c95f030f5288ec7bc5b7d188edb9a27e378d298e36f3d4ef02c1d1fec6",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 9 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.02s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "binance",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 6.93,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-binance",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-binance.log",
+      "log_sha256": "ebe652059fc7dc698c3c35e5c9cf1d12f0828b06e4aa35414b198170e7ca9e36",
+      "outcomes": [
+        "test result: FAILED. 12 passed; 2 failed; 2 ignored; 0 measured; 0 filtered out; finished in 3.35s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "bitfinex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.06,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-bitfinex",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-bitfinex.log",
+      "log_sha256": "01cfc04aafde346c003f50ba41784a31cf5f1b0d65de603598d628119424c3c6",
+      "outcomes": [
+        "test result: FAILED. 4 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "bitget",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.39,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-bitget",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-bitget.log",
+      "log_sha256": "963f920924f6a4e0fef49c16bb178de890d0e978aa3220dd2f3a466ba543a418",
+      "outcomes": [
+        "test result: FAILED. 2 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.68s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "bithumb",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 0.81,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-bithumb",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-bithumb.log",
+      "log_sha256": "436b62addaf23cc82bf76022b4d788cf69217447352b14d746da3e1a1c7ec11c",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "bitmex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.07,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-bitmex",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-bitmex.log",
+      "log_sha256": "c30946d95dbce88f4ef3c768e19af025715b9077fddb576d90c101d551919e70",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 3 failed; 7 ignored; 0 measured; 0 filtered out; finished in 0.23s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "bitstamp",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 0.82,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-bitstamp",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-bitstamp.log",
+      "log_sha256": "5683fd8a047bee094c194e77e745257facd7c37172fcbc95f7f310b1300d9693",
+      "outcomes": [
+        "test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "bitz",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.78,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-bitz",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-bitz.log",
+      "log_sha256": "dc1c450c9ad18bdcd0bf10fa54d4c2e90a758ccb035235bcb7969aab38fe9c53",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 4 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "bybit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.0,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-bybit",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-bybit.log",
+      "log_sha256": "63fccb86292aabe25ee526cd8486d0da96b39903bed462a1a41aff53b9423ede",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 10 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "coinbase_pro",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.83,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-coinbase_pro",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-coinbase_pro.log",
+      "log_sha256": "9dc7f5413851e0b3ae1a2b71ad4faf9f985b66092b9c510af47fecfeeebf2f63",
+      "outcomes": [
+        "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "deribit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.77,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-deribit",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-deribit.log",
+      "log_sha256": "c44ec428d4b2126fae79e6f363e30414696e430b78d5b1ae1551f05431495b01",
+      "outcomes": [
+        "test result: FAILED. 8 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.91s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "dydx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.06,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-dydx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-dydx.log",
+      "log_sha256": "1c46832afb563fa95278bb9e1806093f016721b290657b95ee6878256d1c4c49",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "ftx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.82,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-ftx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-ftx.log",
+      "log_sha256": "f96459e435048d88f28e34ee75d4d230b23c6e0a34e9911bd97e0e2a056c95cb",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 11 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "gate",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 3.33,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-gate",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-gate.log",
+      "log_sha256": "f5594457452a82a1e9f3168775f7e76ce95d5ece8fd353c8e94b5ce575b35605",
+      "outcomes": [
+        "test result: FAILED. 9 passed; 3 failed; 1 ignored; 0 measured; 0 filtered out; finished in 2.56s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "huobi",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 2.04,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-huobi",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-huobi.log",
+      "log_sha256": "a955d2be8d125f68e4d4aa406e505b532cb312b99cfc90768c16e23a1b6dd4f4",
+      "outcomes": [
+        "test result: FAILED. 11 passed; 1 failed; 1 ignored; 0 measured; 0 filtered out; finished in 1.25s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "kraken",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 2.56,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-kraken",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-kraken.log",
+      "log_sha256": "2b0908d38ace8ff20b14f2c449cbade344d9de171500c164d18b9562e3760ee5",
+      "outcomes": [
+        "test result: FAILED. 1 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.54s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "kucoin",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 2.56,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-kucoin",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-kucoin.log",
+      "log_sha256": "d8723f2ea51528c4f473d56bce73d514d1e86d47d7e9db99ebd738f5dc362916",
+      "outcomes": [
+        "test result: FAILED. 9 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.65s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "mexc",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.74,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-mexc",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-mexc.log",
+      "log_sha256": "3a4078db14e8857c8d2b0b189467860d74dbae7a45937ee14e3645acac1d029b",
+      "outcomes": [
+        "test result: FAILED. 3 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.83s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "okx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 3.42,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-okx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-okx.log",
+      "log_sha256": "f7b7f785399f5f0cb7bc223e8f2f553ab2a60eb4c747e2625cd2bd5384fa1616",
+      "outcomes": [
+        "test result: FAILED. 7 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.61s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "zb",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.0,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-zb",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-zb.log",
+      "log_sha256": "c6b61035230626788665dcaca5242342464aeeb1af0469a9f424b69f7e6c7bc8",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "zbg",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 0.93,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-markets-zbg",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-markets-zbg.log",
+      "log_sha256": "8e0b39d7d83dd50dd3c246afe976477db7adf67357069989f0c3e20e65bc9b2c",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 9 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "binance_inverse",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 20.38,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-binance_inverse",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-binance_inverse.log",
+      "log_sha256": "acc91723f3cb9acb17a3ff8215faf7314a0401a3db46c48e7a9311a5ce4dfdb6",
+      "outcomes": [
+        "test result: FAILED. 3 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "binance_linear",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.04,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-binance_linear",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-binance_linear.log",
+      "log_sha256": "6c64e09131df807aa109ce23ed20d26ebcf1e357aa9becef1ca064f05687f528",
+      "outcomes": [
+        "test result: FAILED. 4 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.30s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "binance_option",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.58,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-binance_option",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-binance_option.log",
+      "log_sha256": "96ff1341b53a43f6ea09119f131dbf7b23e3bd4c1a9feafffaaf7cb9b92f5038",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "binance_spot",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.99,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-binance_spot",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-binance_spot.log",
+      "log_sha256": "96542b0886faa1c534daabbf2d9465284a1f697660dff5475737beb9a57f5f7d",
+      "outcomes": [
+        "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "bitfinex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 1.27,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-bitfinex",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-bitfinex.log",
+      "log_sha256": "663eaf3c2e08a185c8370c459ed001696309ca88d8542729eac066cff7519ab8",
+      "outcomes": [
+        "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.70s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "bitget_spot",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 1.09,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-bitget_spot",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-bitget_spot.log",
+      "log_sha256": "d2f003a03af7f369b8e53341251937cdfae0a4cff3d608994f17ccf2b8e4083a",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.38s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "bitget_swap",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.51,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-bitget_swap",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-bitget_swap.log",
+      "log_sha256": "6d671cef71c48079fa96b5fa46ed6c6dad7f2fcbcd6725678ad27bb2508527cb",
+      "outcomes": [
+        "test result: FAILED. 1 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.60s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "bithumb",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 0.93,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-bithumb",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-bithumb.log",
+      "log_sha256": "2962cd1fb3e71255c39298a9c95d2d7d73bf116d7a8ab0ed909a08d92ec48450",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "bitmex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.12,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-bitmex",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-bitmex.log",
+      "log_sha256": "dae246cbdc9d39b5eb8d41a75f981da24338a8223123080099f093ea68b6c489",
+      "outcomes": [
+        "test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.41s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "bitstamp",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 1.48,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-bitstamp",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-bitstamp.log",
+      "log_sha256": "e511eeb6a8874c7e7c66ae7f8251dd083dd737a064cf02f7489584c9d3ccddbc",
+      "outcomes": [
+        "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.85s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "bitz_spot",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.55,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-bitz_spot",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-bitz_spot.log",
+      "log_sha256": "f84a977cc7c1f2dc41c62a3953e4866493852dc3cecfcb1bbf5eb0a8e4ff0e54",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "bitz_swap",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.67,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-bitz_swap",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-bitz_swap.log",
+      "log_sha256": "7d30022131722c94e0b7660cbabd085f44602d7ec1f67b2d3a3ca1fe9332ae81",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 4 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "bybit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 0.9,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-bybit",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-bybit.log",
+      "log_sha256": "af911c121fee0fd023e501f23fb86aab5420298c15df494cab68414002fb7803",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 9 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "coinbase_pro",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 4.92,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-coinbase_pro",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-coinbase_pro.log",
+      "log_sha256": "11b0ddc9a21244e14643c59f4f48041636f3c62db2d648cfa723149274b2289e",
+      "outcomes": [
+        "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.26s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "deribit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 2.07,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-deribit",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-deribit.log",
+      "log_sha256": "59fdfbfe33ff85bc4000fafad02713c2dbd3c4bd5191c65e0bd3a6af2204760b",
+      "outcomes": [
+        "test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.47s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "dydx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.21,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-dydx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-dydx.log",
+      "log_sha256": "9f97cff57f801c6f1b0a93232854071a57816656e76963cc3b55ad45a81427d3",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.58s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "ftx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 90.93,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "9059104550dce5ac39f9d88dea1b1d1c994c62c5faab6c767e7b24d541f618b2",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-ftx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-ftx.log",
+      "log_sha256": "b44062ed6f6d0f0372029228eab691d84c28621b284f3f9079935e5dfd27d446",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 90.33s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "gate",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.65,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-gate",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-gate.log",
+      "log_sha256": "c064cd962a859754eccb6e820c194a1678815484a25ef885f83588f3ec6c071d",
+      "outcomes": [
+        "test result: FAILED. 5 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.06s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "huobi",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 1.51,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-huobi",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-huobi.log",
+      "log_sha256": "015974ddf4a48fa90e639f4e7ef80b3fcb4a9ab29105d0dd0facc0de3b0976f4",
+      "outcomes": [
+        "test result: ok. 11 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.81s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "kraken",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.02,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-kraken",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-kraken.log",
+      "log_sha256": "146707cd608cbda9d9fd23c7962e872d67558807867180b423aec7675da55f62",
+      "outcomes": [
+        "test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.39s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "kucoin",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.33,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-kucoin",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-kucoin.log",
+      "log_sha256": "ab745c48bdbf46a3da2897945b0feb5cf32c08717c6ce308b078df32e109747f",
+      "outcomes": [
+        "test result: FAILED. 5 passed; 4 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.63s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "mexc",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 0.89,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-mexc",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-mexc.log",
+      "log_sha256": "af14afd3779368ceb821ad49c4fc5fe3e481f48db32537fb47cef9d27f1a1b18",
+      "outcomes": [
+        "test result: FAILED. 2 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.30s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "okx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 1.05,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-okx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-okx.log",
+      "log_sha256": "d707c8aee56d3c3efcf19b1d0fbf29950784338d7300b19ed0258165e70e59e2",
+      "outcomes": [
+        "test result: FAILED. 10 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "zb",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 0.78,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-zb",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-zb.log",
+      "log_sha256": "b6943d44416824a83e5d76bf8e9bb4ba35ba33436744efeb1e54d49e1364f782",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "zbg",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 0.71,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-rest-client-zbg",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-rest-client-zbg.log",
+      "log_sha256": "3226a6876107189f1532bd76bf913a403815f7a295c768451d83f6cc40b8e6ea",
+      "outcomes": [
+        "test result: FAILED. 2 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "binance",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 124,
+      "seconds": 120.03,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-binance",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-binance.log",
+      "log_sha256": "a973a556e8f2658cfbfab8d90041881e8efafbbc134fcc498c7ce383e9ff388a",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "binance_option",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 3.12,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "c1d03e2c0b9e8ac55b65b94f820b80aaab1f118281779b892ec8085e8bdb75f3",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-binance_option",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-binance_option.log",
+      "log_sha256": "5a3d601781567dd525d58352c75b38a50759e078877f35906ceb4b58dab62c33",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 7 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "bitfinex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 25.11,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "6c53021f59c142c93e864f3ccdab715d781b39357fd98805bdb358bc9a9c6d93",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-bitfinex",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-bitfinex.log",
+      "log_sha256": "0a10538945c8a9bab12d5e8c4e04c8ba39d6714fe6c0959513fed98883f64bd7",
+      "outcomes": [
+        "test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.14s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "bitget",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 64.81,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "6c53021f59c142c93e864f3ccdab715d781b39357fd98805bdb358bc9a9c6d93",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-bitget",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-bitget.log",
+      "log_sha256": "5101b3c6bbbc58f4c81bcd6fe20410dfc3a53ce649c3c4cd82683459c8759c18",
+      "outcomes": [
+        "test result: FAILED. 10 passed; 7 failed; 2 ignored; 0 measured; 0 filtered out; finished in 61.15s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "bithumb",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 2.27,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "493216ea8a33c4ce4c0d3949325bc091df7e9d07fdfea948d099c06f609f353f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-bithumb",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-bithumb.log",
+      "log_sha256": "aede520a3df9bd56c7ec9451e2c1cc0c50e91c73ce164c861d14a20b5a23477f",
+      "outcomes": [
+        "test result: FAILED. 1 passed; 3 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.02s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "bitmex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 8.15,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "493216ea8a33c4ce4c0d3949325bc091df7e9d07fdfea948d099c06f609f353f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-bitmex",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-bitmex.log",
+      "log_sha256": "1b54b7e543e0f323b28dce4279a18b60501741309e77074df81e0b32cf57e426",
+      "outcomes": [
+        "test result: ok. 26 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 3.53s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "bitstamp",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 6.08,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "493216ea8a33c4ce4c0d3949325bc091df7e9d07fdfea948d099c06f609f353f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-bitstamp",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-bitstamp.log",
+      "log_sha256": "5646d16fd0042d102e1be7821f486e53d4c235c78c90efd9efc95c3fd489beb0",
+      "outcomes": [
+        "test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.15s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "bitz",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 2.37,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "493216ea8a33c4ce4c0d3949325bc091df7e9d07fdfea948d099c06f609f353f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-bitz",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-bitz.log",
+      "log_sha256": "89644c9593e89be0d931b81f4632c2d1ae3e286fb9b2a0c5275d1fd9fc30b81c",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 6 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "bybit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 5.39,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "493216ea8a33c4ce4c0d3949325bc091df7e9d07fdfea948d099c06f609f353f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-bybit",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-bybit.log",
+      "log_sha256": "b90734c47aeaf69598643c4e0b48f83dc85c217ef264e2fc5d4fabc13511757d",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 16 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.80s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "coinbase_pro",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 64.21,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "493216ea8a33c4ce4c0d3949325bc091df7e9d07fdfea948d099c06f609f353f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-coinbase_pro",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-coinbase_pro.log",
+      "log_sha256": "dcb9d5841c5216ea8bd39ccde7b2c599ca39938a44dc9f7136db745b045315fe",
+      "outcomes": [
+        "test result: FAILED. 6 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 61.85s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "deribit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 70.38,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "189a12caba6cd22a194e5ebdb53126fde2c7c984ddecd5a392cb49951ea52c6f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-deribit",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-deribit.log",
+      "log_sha256": "11f4a614362dd49c06185b812cdd082b4967b57305115a0690ffc1010baecd95",
+      "outcomes": [
+        "test result: FAILED. 8 passed; 8 failed; 6 ignored; 0 measured; 0 filtered out; finished in 66.01s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "dydx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 4.13,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "189a12caba6cd22a194e5ebdb53126fde2c7c984ddecd5a392cb49951ea52c6f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-dydx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-dydx.log",
+      "log_sha256": "0a6687fe1d5680b30c5ca48acb8b74c0831a7055bdcc3af270c07558bf2b335f",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.71s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "ftx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 124,
+      "seconds": 120.02,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "189a12caba6cd22a194e5ebdb53126fde2c7c984ddecd5a392cb49951ea52c6f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-ftx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-ftx.log",
+      "log_sha256": "e250c917918a11f0bdf074c6ff90a0fbc19f659a581299cd6dbda94c13928841",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "gate",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 124,
+      "seconds": 120.02,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "b536f61c1191187f5e188e8c0a3db8f0461205459620a7c4f13e65bc28e82138",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-gate",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-gate.log",
+      "log_sha256": "98c577b8335aca26686b62c241077ebeae024b32a8cd9eda0c6454b8b3057e25",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "huobi",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 29.32,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "b536f61c1191187f5e188e8c0a3db8f0461205459620a7c4f13e65bc28e82138",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-huobi",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-huobi.log",
+      "log_sha256": "ceebcc9239a7301ff65f154ffff741e450605013a1ab652d3339a4caaf3feca2",
+      "outcomes": [
+        "test result: FAILED. 12 passed; 22 failed; 8 ignored; 0 measured; 0 filtered out; finished in 21.99s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "kraken",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 74.2,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "7981c27a431ef4f81ad703b9de572c8a2490f22f61c0ab21f6d2c56b673b1d4c",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-kraken",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-kraken.log",
+      "log_sha256": "38ad7b9f9c20cf8feba7402d297204f419eba9917e3c3c7eb10785b6c6998e80",
+      "outcomes": [
+        "test result: FAILED. 11 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.01s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "kucoin",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 36.1,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "7981c27a431ef4f81ad703b9de572c8a2490f22f61c0ab21f6d2c56b673b1d4c",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-kucoin",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-kucoin.log",
+      "log_sha256": "931671559c6bec49c036c01a1b405f97625ee021dbb7655914b14d9dd35ea987",
+      "outcomes": [
+        "test result: FAILED. 23 passed; 3 failed; 7 ignored; 0 measured; 0 filtered out; finished in 30.02s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "mexc",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 6.47,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "7981c27a431ef4f81ad703b9de572c8a2490f22f61c0ab21f6d2c56b673b1d4c",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-mexc",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-mexc.log",
+      "log_sha256": "7472329fc9c727fd781eb42b1877ca70fe8ef2b30590e774d24c9a29e3e89df3",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 19 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.21s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "okx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 14.59,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "7981c27a431ef4f81ad703b9de572c8a2490f22f61c0ab21f6d2c56b673b1d4c",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-okx",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-okx.log",
+      "log_sha256": "141a92a240a3912b401476faf29170cf831d7ce04245c3ef3eac26c9024fcbc2",
+      "outcomes": [
+        "test result: FAILED. 17 passed; 11 failed; 2 ignored; 0 measured; 0 filtered out; finished in 9.52s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "zb",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 3.26,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "7981c27a431ef4f81ad703b9de572c8a2490f22f61c0ab21f6d2c56b673b1d4c",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-zb",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-zb.log",
+      "log_sha256": "5463c89b9d0c0aacd03414cc64757176a2f53ef7234ded37ff5ccc26d8743cc7",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 13 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "zbg",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 4.7,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "7981c27a431ef4f81ad703b9de572c8a2490f22f61c0ab21f6d2c56b673b1d4c",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-integration-crypto-ws-client-zbg",
+      "original_log": "crypto-crawler-rs-current-integration-crypto-ws-client-zbg.log",
+      "log_sha256": "e57c78dc685019f888f3ef6099af989fe30b12b193a19815ea8ce21dfe7a579d",
+      "outcomes": [
+        "test result: FAILED. 0 passed; 6 failed; 15 ignored; 0 measured; 0 filtered out; finished in 0.02s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "deribit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 55.62,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "c1d03e2c0b9e8ac55b65b94f820b80aaab1f118281779b892ec8085e8bdb75f3",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-listed-deribit-complete-existing-tests",
+      "original_log": "crypto-crawler-rs-current-listed-deribit-complete-existing-tests.log",
+      "log_sha256": "d48d142e1f1aae00dd3bb4dd34009ef2eb8aba653dd6f3411ad453da41cb355d",
+      "outcomes": [
+        "test result: ok. 24 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 38.70s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "deribit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 0.42,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "a50eee4ca3a1673d64f2edad10a8dc2130e436532432d64db0bcab1558d38b44",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-listed-deribit-existing-tests",
+      "original_log": "crypto-crawler-rs-current-listed-deribit-existing-tests.log",
+      "log_sha256": "482e65e7f37a0f6372721fe3820e23821c12d7f3f84393ccbcae0cf6de5e64a9",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "deribit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 17.29,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-listed-deribit-existing-tests-corrected",
+      "original_log": "crypto-crawler-rs-current-listed-deribit-existing-tests-corrected.log",
+      "log_sha256": "26a5692a0980e162e74f924a61d300ee6e9f5ac6631efafa3666c3f85d294545",
+      "outcomes": [
+        "test result: FAILED. 19 passed; 5 failed; 1 ignored; 0 measured; 0 filtered out; finished in 13.05s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "okx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 0.38,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "a50eee4ca3a1673d64f2edad10a8dc2130e436532432d64db0bcab1558d38b44",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-listed-okx-existing-tests",
+      "original_log": "crypto-crawler-rs-current-listed-okx-existing-tests.log",
+      "log_sha256": "2a5144fbcc98b00545fecfaca72ab024979d5ce0e151c81472fddb6d9b4057d5",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "okx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 74.84,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "ec0f7814b05064e31aa519d449f12a8dd3270fe5aeb0c274f04f05e8146e0d16",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-listed-okx-existing-tests-corrected",
+      "original_log": "crypto-crawler-rs-current-listed-okx-existing-tests-corrected.log",
+      "log_sha256": "a3646930e2bb05bacd9e260a9b34692f1cc6e8e7905e16a494e577bccd049ceb",
+      "outcomes": [
+        "test result: FAILED. 34 passed; 20 failed; 0 ignored; 0 measured; 0 filtered out; finished in 67.62s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "binance_inverse",
+        "--",
+        "--test-threads=4"
+      ],
+      "exit_code": 0,
+      "seconds": 12.36,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "7981c27a431ef4f81ad703b9de572c8a2490f22f61c0ab21f6d2c56b673b1d4c",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-listed-rest-binance-inverse-existing-tests",
+      "original_log": "crypto-crawler-rs-current-listed-rest-binance-inverse-existing-tests.log",
+      "log_sha256": "1c7421ca88866f861bbc2d737615718904a96e7b89efd4cd9af471517b2e98f6",
+      "outcomes": [
+        "test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.15s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "binance_linear",
+        "--",
+        "--test-threads=4"
+      ],
+      "exit_code": 0,
+      "seconds": 44.99,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "7981c27a431ef4f81ad703b9de572c8a2490f22f61c0ab21f6d2c56b673b1d4c",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-listed-rest-binance-linear-existing-tests",
+      "original_log": "crypto-crawler-rs-current-listed-rest-binance-linear-existing-tests.log",
+      "log_sha256": "951199531c575792b1d33b415b526efb1663ea4911fda0dc92e288fe22e67a2a",
+      "outcomes": [
+        "test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.56s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "deribit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 82.48,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "7981c27a431ef4f81ad703b9de572c8a2490f22f61c0ab21f6d2c56b673b1d4c",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-listed-websocket-deribit-existing-tests",
+      "original_log": "crypto-crawler-rs-current-listed-websocket-deribit-existing-tests.log",
+      "log_sha256": "0dcc7a1d67b1b5fe798338713439c4c707a5ea9c324fc8b4412bc05eb3ae8426",
+      "outcomes": [
+        "test result: FAILED. 12 passed; 4 failed; 6 ignored; 0 measured; 0 filtered out; finished in 32.86s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--lib",
+        "--no-fail-fast"
+      ],
+      "exit_code": 0,
+      "seconds": 43.81,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "888faf727fdb2e0d4d74dfb2d67c836e2bd1c5af8fcba577d685a888f195ebd6",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-protocol-complete-native-unit-tests",
+      "original_log": "crypto-crawler-rs-current-protocol-complete-native-unit-tests.log",
+      "log_sha256": "153ba771c4d189045374e869b06e53a04e9a61e7876e399c8937dd7e8be4fb95",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.14s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 3 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.34s",
+        "test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.27s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "binance",
+        "inversefuture",
+        "--",
+        "--test-threads=4"
+      ],
+      "exit_code": 0,
+      "seconds": 18.73,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "189a12caba6cd22a194e5ebdb53126fde2c7c984ddecd5a392cb49951ea52c6f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-quarter-binance-existing-futures-tests",
+      "original_log": "crypto-crawler-rs-current-quarter-binance-existing-futures-tests.log",
+      "log_sha256": "378eff666538cdef532b6c9ceb73be20fb86837fd3c194b758a9376a4d683881",
+      "outcomes": [
+        "test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 38 filtered out; finished in 12.98s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "binance",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 75.64,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "888faf727fdb2e0d4d74dfb2d67c836e2bd1c5af8fcba577d685a888f195ebd6",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-quarter-complete-binance-existing-tests",
+      "original_log": "crypto-crawler-rs-current-quarter-complete-binance-existing-tests.log",
+      "log_sha256": "4f73125070d992d6b34eeddbe699e8c893a4c07e803ab9fcf1aef40d7ef28e40",
+      "outcomes": [
+        "test result: FAILED. 44 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 49.72s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "okx",
+        "inversefuture",
+        "--",
+        "--test-threads=4"
+      ],
+      "exit_code": 101,
+      "seconds": 40.65,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "189a12caba6cd22a194e5ebdb53126fde2c7c984ddecd5a392cb49951ea52c6f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "current-quarter-okx-existing-futures-tests",
+      "original_log": "crypto-crawler-rs-current-quarter-okx-existing-futures-tests.log",
+      "log_sha256": "d48f4a4563786d322a80bee4f253cdc07482431350f1095bb25f6082754c411f",
+      "outcomes": [
+        "test result: FAILED. 7 passed; 2 failed; 0 ignored; 0 measured; 45 filtered out; finished in 34.82s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitget",
+        "_markettype_linearswap",
+        "--",
+        "--test-threads=4"
+      ],
+      "exit_code": 101,
+      "seconds": 10.29,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "final-bitget-v2-supported-linear-tests",
+      "original_log": "crypto-crawler-rs-final-bitget-v2-supported-linear-tests.log",
+      "log_sha256": "4efbcbb8578ccc2909f2db24622da6426d19c98e97084590ae11d8eef8a87810",
+      "outcomes": [
+        "test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 12 filtered out; finished in 8.99s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "seconds": 61.4,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "5481f91a64c3d9edc78285de2dcff7412f2a642c59a6eb749ec9c8cfde15983a",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "final-bounded-channel-all-target-build",
+      "original_log": "crypto-crawler-rs-final-bounded-channel-all-target-build.log",
+      "log_sha256": "f80f79dc97dbd90b700158658d8c0b2a6ac3781f3096ca8d1e303a4206eaf6a8",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "seconds": 161.71,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "b536f61c1191187f5e188e8c0a3db8f0461205459620a7c4f13e65bc28e82138",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "final-current-protocol-all-target-build",
+      "original_log": "crypto-crawler-rs-final-current-protocol-all-target-build.log",
+      "log_sha256": "77c4bd0107d7271787539927213b3d37ab061c884cd24c1a5bc68c9613159f1e",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--no-fail-fast",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 124,
+      "seconds": 900.01,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "final-existing-suite",
+      "original_log": "crypto-crawler-rs-final-existing-suite.log",
+      "log_sha256": "5f7fc45bd2456678afc5fa98fe97226b9d15fdce87b9a832cc7c7b05e7d43493",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.57s",
+        "test result: FAILED. 45 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 42.67s",
+        "test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 44.81s",
+        "test result: FAILED. 0 passed; 20 failed; 0 ignored; 0 measured; 0 filtered out; finished in 150.25s",
+        "test result: FAILED. 0 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 40.06s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--all-targets",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 32.59,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "final-local-build",
+      "original_log": "crypto-crawler-rs-final-local-build.log",
+      "log_sha256": "9ed07b19321eadbd6e2cf74fe9e20167433e307bc71711056ff110ba9b2ed2a4",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "binance",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 74.93,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "futures-endpoint-integration",
+      "original_log": "crypto-crawler-rs-futures-endpoint-integration.log",
+      "log_sha256": "20eb55742ac124b0a936961814c63a01e7f29b90e33a534e81b0a9cf8079b9d5",
+      "outcomes": [
+        "test result: FAILED. 37 passed; 10 failed; 0 ignored; 0 measured; 0 filtered out; finished in 65.14s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--doc"
+      ],
+      "exit_code": 124,
+      "seconds": 600.01,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "latest-existing-native-doc-tests",
+      "original_log": "crypto-crawler-rs-latest-existing-native-doc-tests.log",
+      "log_sha256": "355044ca44ca72b96aa616a6895819e359e0a9b09828b79385bede20d5b272b8",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--lib",
+        "--doc"
+      ],
+      "exit_code": 101,
+      "seconds": 0.04,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "latest-existing-native-unit-and-doc-tests",
+      "original_log": "crypto-crawler-rs-latest-existing-native-unit-and-doc-tests.log",
+      "log_sha256": "e8ccccae3e09f05c4fa82cc14ee33646a9759a5b245e84dec436aba461041b92",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--lib"
+      ],
+      "exit_code": 0,
+      "seconds": 6.93,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "latest-existing-native-unit-tests",
+      "original_log": "crypto-crawler-rs-latest-existing-native-unit-tests.log",
+      "log_sha256": "4f1c8f09feb719ff394e766c461361372676cf67463dcc9db11f775c8700fe30",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.91s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 3 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.83s",
+        "test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.47s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "seconds": 79.6,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "latest-public-api-all-target-build",
+      "original_log": "crypto-crawler-rs-latest-public-api-all-target-build.log",
+      "log_sha256": "2ecc8d22b00df65055868e276f9b2f2084319b13a2c213d36a10f047a9cad1c8",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-rest-client",
+        "--test",
+        "okx",
+        "--",
+        "--test-threads=4"
+      ],
+      "exit_code": 101,
+      "seconds": 11.65,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "888faf727fdb2e0d4d74dfb2d67c836e2bd1c5af8fcba577d685a888f195ebd6",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "listed-current-rest-okx-existing-tests",
+      "original_log": "crypto-crawler-rs-listed-current-rest-okx-existing-tests.log",
+      "log_sha256": "0f0bb69841ddec0969480467ec67d70baa9f0e9d3b4c94c9abd851f2a12c750a",
+      "outcomes": [
+        "test result: FAILED. 11 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.17s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-ws-client",
+        "--test",
+        "deribit",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 72.91,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "888faf727fdb2e0d4d74dfb2d67c836e2bd1c5af8fcba577d685a888f195ebd6",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "listed-websocket-deribit-original-stream-window",
+      "original_log": "crypto-crawler-rs-listed-websocket-deribit-original-stream-window.log",
+      "log_sha256": "b0db12c6f29c184043c7c760dd1eeb2bff62888e59ea925578ed3a51903132e3",
+      "outcomes": [
+        "test result: FAILED. 12 passed; 4 failed; 6 ignored; 0 measured; 0 filtered out; finished in 63.57s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "binance",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 60.82,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "local-futures-endpoint-integration",
+      "original_log": "crypto-crawler-rs-local-futures-endpoint-integration.log",
+      "log_sha256": "d1ce652b7604d28988f15fa999bf1c80db8bc5099156f92badb90aa3606d6c23",
+      "outcomes": [
+        "test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 34.67s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--lib"
+      ],
+      "exit_code": 0,
+      "seconds": 4.32,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "local-library-tests",
+      "original_log": "crypto-crawler-rs-local-library-tests.log",
+      "log_sha256": "e70ba8747ef823a44b592c67be0f7897d83caed35273b852156d2c8261b99677",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.08s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 3 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.34s",
+        "test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--doc",
+        "--no-fail-fast",
+        "--locked"
+      ],
+      "exit_code": 101,
+      "seconds": 173.85,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "b26bc7d8af51e8682fbbdb0baa498f05b1885003d399331d2b8e7b956c645cb3",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "maintained-complete-documentation-examples",
+      "original_log": "crypto-crawler-rs-maintained-complete-documentation-examples.log",
+      "log_sha256": "e0d9f81cbf4a2780f8bfb9e478e7430346c2c0032134232c7d988f588231c7c5",
+      "outcomes": [
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: FAILED. 9 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 32.42s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.38s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.21s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--all-targets",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 127.83,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "b26bc7d8af51e8682fbbdb0baa498f05b1885003d399331d2b8e7b956c645cb3",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "maintained-fixture-all-target-final-build",
+      "original_log": "crypto-crawler-rs-maintained-fixture-all-target-final-build.log",
+      "log_sha256": "7f362f46402e2c4ee3ef8e6224c8dd5583f0d3bdde47e0f2f336140f408200e8",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "okx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 80.58,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "6c53021f59c142c93e864f3ccdab715d781b39357fd98805bdb358bc9a9c6d93",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "okx-current-endpoint-existing-tests",
+      "original_log": "crypto-crawler-rs-okx-current-endpoint-existing-tests.log",
+      "log_sha256": "642e9e9e87bd94b7bcab2eaf42ba41b96db1530a1ab090ebe1f4c28c65edbf96",
+      "outcomes": [
+        "test result: FAILED. 46 passed; 8 failed; 0 ignored; 0 measured; 0 filtered out; finished in 67.03s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "okx",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 95.07,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+        "tracked_source_diff_sha256": "493216ea8a33c4ce4c0d3949325bc091df7e9d07fdfea948d099c06f609f353f",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "okx-current-protocol-and-parser-existing-tests",
+      "original_log": "crypto-crawler-rs-okx-current-protocol-and-parser-existing-tests.log",
+      "log_sha256": "0fe86061e64bbc957771120d1b6ec46b2a43f65a34132ca2e1be32684e73145a",
+      "outcomes": [
+        "test result: FAILED. 47 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 67.94s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "--workspace",
+        "--no-fail-fast",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": -15,
+      "seconds": 965.8,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "interruption_reason": "Owned process group terminated after complete early venue results and persistent retired FTX endpoint/runtime stalls. This exploratory run predates the final HTTP timeouts and Bitget v2 changes; it is not a full-suite pass.",
+      "check": "owned-snapshot-full-existing-tests",
+      "original_log": "crypto-crawler-rs-owned-snapshot-full-existing-tests.log",
+      "log_sha256": "e04e92ee56544dd7ae13fd52ac3b514fa11b5169277ea2f68bf034d6043cdd89",
+      "outcomes": [
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.47s",
+        "test result: FAILED. 42 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 50.15s",
+        "test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 45.00s",
+        "test result: FAILED. 0 passed; 20 failed; 0 ignored; 0 measured; 0 filtered out; finished in 31.17s",
+        "test result: FAILED. 0 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.01s",
+        "test result: FAILED. 6 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.01s",
+        "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.60s",
+        "test result: ok. 0 passed; 0 failed; 10 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: FAILED. 0 passed; 21 failed; 0 ignored; 0 measured; 0 filtered out; finished in 31.97s",
+        "test result: FAILED. 6 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.01s",
+        "test result: FAILED. 13 passed; 11 failed; 1 ignored; 0 measured; 0 filtered out; finished in 39.84s",
+        "test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.01s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitmex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 124,
+      "seconds": 180.02,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "single-attempt-bitmex-tests",
+      "original_log": "crypto-crawler-rs-single-attempt-bitmex-tests.log",
+      "log_sha256": "b0f2d034b1a96575dd51f746c99bba814df616f9b104b97a8e53933cb8db612f",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-crawler",
+        "--test",
+        "bitmex",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 32.91,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "snapshot-thread-owned-bitmex-tests",
+      "original_log": "crypto-crawler-rs-snapshot-thread-owned-bitmex-tests.log",
+      "log_sha256": "bbcb528d65077f8fa6b01397d1c5f9ec3a3001949f22d62c9fde6555f8d188c5",
+      "outcomes": [
+        "test result: FAILED. 6 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.00s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace"
+      ],
+      "exit_code": 101,
+      "seconds": 9.88,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "test",
+      "original_log": "crypto-crawler-rs-test.log",
+      "log_sha256": "706bfbe6b5fcb3275f6e0c6058a5e64a5bfeea749bbe2c9e02fe2230a763028e",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace"
+      ],
+      "exit_code": 101,
+      "seconds": 6.46,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "test-compatible",
+      "original_log": "crypto-crawler-rs-test-compatible.log",
+      "log_sha256": "a63ee82e54463f190223367186664cf05129733e2c429b5e5efdb53ee5d64200",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: FAILED. 3 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.53s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace"
+      ],
+      "exit_code": 101,
+      "seconds": 1550.02,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "test-stable-ranking",
+      "original_log": "crypto-crawler-rs-test-stable-ranking.log",
+      "log_sha256": "ec667d7776440a8969a1006f894f4fc49df454bc19f7c4904458b374f27ce501",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.11s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace"
+      ],
+      "exit_code": 101,
+      "seconds": 71.45,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "check": "test-utf8",
+      "original_log": "crypto-crawler-rs-test-utf8.log",
+      "log_sha256": "f2506f1a8fddf786c9d7345245de074f981951bd475076fcab9539e9b2071d4c",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.86s"
+      ]
+    }
+  ],
+  "summary": {
+    "repo": "crypto-crawler-rs",
+    "status": "All native targets build;96 unit tests pass. Complete86 integration-target inventory has external failures/timeouts; final docs12 pass/1 auth failure.",
+    "runtime": "Rust1.99.0; no Python project",
+    "tests": "96 native unit passed; final doc12 passed/1 failed; initial complete integration inventory481 passed/416 failed/112 existing ignored plus4 target timeouts.",
+    "notes": "Real current protocol repairs and listed contract selection retain original assertions. No fake events, removed tests or unsupported all-green claim."
+  },
+  "note": "Full raw logs are retained in the workspace maintenance evidence, not distributed here. Hashes identify those original logs. A successful build or selected test subset does not imply a full test-suite pass. Commands containing <workspace> describe the original execution environment."
+}
