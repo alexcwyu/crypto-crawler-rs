@@ -14,6 +14,14 @@ The complete existing Binance metadata target now passes **14 active cases with 
 
 The complete 96-case native unit suite was rerun successfully after this repair. [Captured public metadata](maintenance/binance-classification-evidence.json) and [Binance exchange information](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Exchange-Information) document the source of this change.
 
+## Bybit v5 metadata follow-up
+
+The deprecated `/v2/public/symbols` returns HTTP404. The real current [v5 instrument API](https://bybit-exchange.github.io/docs/v5/market/instrument) returns both categories, with cursor pagination and explicit contract types. All **10 original Bybit metadata cases pass** against that API. Delivery timestamps and price/quantity limits come from the real response. Existing exact BTC limit assertions were updated only to match the captured current metadata; no test cases or contract-family assertions were removed.
+
+[Captured public metadata](maintenance/bybit-v5-public-metadata.json) records the BTC instruments used by those assertions. Current USDC perpetual `PERP` symbols retain their base/USDC pair and linear swap identity in the licensed pair patch. This result does not claim completion of Bybit's separate deprecated REST trading or websocket APIs.
+
+V5 public instruments do not expose authenticated account fees. Returned fees are explicitly labeled published VIP0 baselines in `info.feeSource`: [ordinary derivatives](https://www.bybit.com/en/help-center/article/Trading-Fee-Structure) and [TradFi perpetual rates](https://announcements.bybit.com/en/article/tradfi-perpetuals-lower-fees-across-all-tiers-bltb196506dada4be39/). They are estimates; authenticated account rates can differ.
+
 ## Subsequent current-protocol results
 
 - Binance REST inverse futures: 6 passed; linear futures: 6 passed, using real currently-listed quarterly metadata.
