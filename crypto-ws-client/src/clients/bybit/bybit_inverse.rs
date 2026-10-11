@@ -1,16 +1,16 @@
 use async_trait::async_trait;
 
 use crate::{
+    WSClient,
     clients::common_traits::{
-        Candlestick, Level3OrderBook, OrderBook, OrderBookTopK, Ticker, Trade, BBO,
+        BBO, Candlestick, Level3OrderBook, OrderBook, OrderBookTopK, Ticker, Trade,
     },
     common::{command_translator::CommandTranslator, ws_client_internal::WSClientInternal},
-    WSClient,
 };
 
 use super::utils::{BybitMessageHandler, EXCHANGE_NAME};
 
-const WEBSOCKET_URL: &str = "wss://stream.bybit.com/realtime";
+const WEBSOCKET_URL: &str = "wss://stream.bybit.com/v5/public/inverse";
 
 /// Bybit Inverses markets.
 ///
@@ -34,13 +34,13 @@ impl_new_constructor!(
     BybitInverseCommandTranslator {}
 );
 
-impl_trait!(Trade, BybitInverseWSClient, subscribe_trade, "trade");
+impl_trait!(Trade, BybitInverseWSClient, subscribe_trade, "publicTrade");
 #[rustfmt::skip]
 // Prefer orderBookL2_25 over orderBook_200.100ms because /public/orderBook/L2
 // returns a top 25 snapshot, which is the same depth as orderBookL2_25.
-impl_trait!(OrderBook, BybitInverseWSClient, subscribe_orderbook, "orderBookL2_25");
+impl_trait!(OrderBook, BybitInverseWSClient, subscribe_orderbook, "orderbook.50");
 #[rustfmt::skip]
-impl_trait!(Ticker, BybitInverseWSClient, subscribe_ticker, "instrument_info.100ms");
+impl_trait!(Ticker, BybitInverseWSClient, subscribe_ticker, "tickers");
 impl_candlestick!(BybitInverseWSClient);
 panic_bbo!(BybitInverseWSClient);
 panic_l3_orderbook!(BybitInverseWSClient);
@@ -71,7 +71,7 @@ impl BybitInverseCommandTranslator {
                 "Bybit InverseFuture has intervals 1min,5min,15min,30min,60min,4hour,1day,1week,1mon"
             ),
         };
-        format!("klineV2.{interval_str}")
+        format!("kline.{interval_str}")
     }
 }
 

@@ -15,6 +15,9 @@ pub fn current_expiring_symbol(exchange: &str, market_type: MarketType, symbol: 
     let parts: Vec<&str> = symbol.split('-').collect();
     let prefix = if exchange == "binance" {
         format!("{}_", symbol.split('_').next().expect("contract prefix"))
+    } else if exchange == "bybit" {
+        let base_end = symbol.find("USD").expect("inverse USD contract prefix");
+        symbol[..base_end + 3].to_string()
     } else if exchange == "okx" {
         format!("{}-{}-", parts[0], parts[1])
     } else {

@@ -60,3 +60,10 @@ Binance metadata classifies both regular and TradFi perpetual contracts as swaps
 ## Bybit current instrument metadata
 
 The [native Bybit metadata adapter](../crypto-markets/src/exchanges/bybit.rs) uses v5 category pagination and explicit contract types. It admits actual base/quote/settlement IDs and delivery timestamps; it does not infer maturity from the local calendar. [The licensed pair patch](../vendor/crypto-pair/src/exchanges/bybit.rs) handles current USDC PERP symbols. All ten supplied metadata cases pass. Public VIP0 fee baselines are labeled in `info.feeSource`; authenticated account-specific fees are outside this public metadata API.
+
+
+## Bybit v5 public market workflow
+
+The [native REST adapter](../crypto-rest-client/src/exchanges/bybit.rs) uses real v5 category parameters and validates venue return codes. Both [inverse](../crypto-ws-client/src/clients/bybit/bybit_inverse.rs) and [linear](../crypto-ws-client/src/clients/bybit/bybit_linear_swap.rs) streaming clients use current v5 public topics. The [licensed decoder](../vendor/crypto-msg-parser/src/exchanges/bybit_v5.rs) preserves native quantity units, actual exchange timestamps, book update IDs and snapshot/delta identity; its legacy decoder remains available. The engineering guide includes eight offline SVG diagrams, including this end-to-end workflow.
+
+The complete nine-case REST target and 24 legacy parser cases pass. Complete live websocket and crawler targets retain respectively three and two inverse-future trade-arrival failures. All 96 native unit cases and all workspace build targets pass after these repairs. See the exact dated command records rather than combining focused runs into an all-green integration claim.

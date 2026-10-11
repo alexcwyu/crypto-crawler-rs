@@ -191,3 +191,29 @@ sequenceDiagram
 [Listed-contract fixture support](../test_support/listed_contracts.rs) queries actual metadata for the original underlying, settlement family and market type. Quarterly futures remain preferred when the original fixture was quarterly. Options prefer the original strike and then the nearest admitted strike while retaining call/put side. It does not return replay data or drop instruments because a venue no longer lists them. The unchanged supplied assertions still validate real messages. The [current funding parser patch](../vendor/crypto-msg-parser/src/exchanges/okx/okx_v5.rs) maps an omitted optional forecast to `None`, with [upstream license](../vendor/crypto-msg-parser/LICENSE) and [modification notice](../vendor/crypto-msg-parser/MODIFICATIONS.md).
 
 Coinbase's public Level2 path uses its documented 50 ms batch feed; its Full/Level3 subscription returns an authentication error without account credentials. BitMEX's original futures fixtures are settled. Build/unit success and each dated live integration outcome are separately recorded in [validation](validation.md); neither a current socket acknowledgement nor a substituted market family is counted as a passing original data assertion.
+
+## Current Bybit v5 data path
+
+The [public instrument adapter](../crypto-markets/src/exchanges/bybit.rs) follows category cursor pages and admits only actual listed contract types. The [inverse](../crypto-ws-client/src/clients/bybit/bybit_inverse.rs) and [linear](../crypto-ws-client/src/clients/bybit/bybit_linear_swap.rs) clients use the corresponding real v5 sockets. The [licensed v5 decoder](../vendor/crypto-msg-parser/src/exchanges/bybit_v5.rs) preserves exchange timestamps, taker sides, zero-size deletions, update IDs and inverse volume units; historical parsing remains available. [Public REST requests](../crypto-rest-client/src/exchanges/bybit.rs) return actual v5 responses and propagate venue errors.
+
+```mermaid
+sequenceDiagram
+    participant Fixture as Existing contract fixture
+    participant Metadata as Bybit instrument adapter
+    participant API as Bybit v5 public APIs
+    participant Client as Native websocket client
+    participant Parser as Licensed native parser
+    participant Consumer as Crawler consumer
+    Fixture->>Metadata: Original base and contract family
+    Metadata->>API: Category and cursor pages
+    API-->>Metadata: Real listed symbols and delivery times
+    Metadata-->>Fixture: Admitted current symbol
+    Fixture->>Client: Existing subscription
+    Client->>API: publicTrade / orderbook / kline
+    API-->>Client: Genuine snapshot or delta
+    Client->>Parser: Original JSON and market identity
+    Parser-->>Consumer: Typed price, quantity, time and update
+    Consumer-->>Fixture: Original received-message assertions
+```
+
+Read [validation](validation.md) for terminal full and focused results. A quiet dated-future feed can fail the original arrival deadline; missing trade data is not replaced with perpetual or artificial events.

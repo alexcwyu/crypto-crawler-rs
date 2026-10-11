@@ -1,3 +1,4 @@
+// AYU maintenance: genuine v5 decoding retains historical parsers; see MODIFICATIONS.md.
 use crypto_market_type::MarketType;
 use crypto_msg_type::MessageType;
 
@@ -149,6 +150,23 @@ pub(crate) fn extract_timestamp(
     let json_obj = serde_json::from_str::<HashMap<String, Value>>(msg)
         .map_err(|_e| SimpleError::new(format!("Failed to parse the JSON string {msg}")))?;
     if json_obj.contains_key("topic") && json_obj["topic"].is_string() {
+        if let Some(ts) = json_obj.get("ts") {
+            if json_obj["topic"].as_str().unwrap().starts_with("publicTrade.") {
+                let rows = json_obj["data"]
+                    .as_array()
+                    .ok_or_else(|| SimpleError::new("Bybit v5 trade data must be an array"))?;
+                let timestamps = rows
+                    .iter()
+                    .map(|row| super::bybit_v5::timestamp(&row["T"]))
+                    .collect::<Result<Vec<_>, _>>()?;
+                return timestamps
+                    .into_iter()
+                    .max()
+                    .map(Some)
+                    .ok_or_else(|| SimpleError::new("Bybit v5 trade data is empty"));
+            }
+            return super::bybit_v5::timestamp(ts).map(Some);
+        }
         let msg_type = json_obj["topic"].as_str().unwrap().split('.').next().unwrap();
         match msg_type {
             "trade" => {
@@ -203,13 +221,13 @@ pub(crate) fn get_msg_type(msg: &str) -> MessageType {
             let arr = table.split('.').collect::<Vec<&str>>();
             arr[0]
         };
-        if channel == "trade" {
+        if channel == "trade" || channel == "publicTrade" {
             MessageType::Trade
-        } else if channel == "orderBookL2_25" {
+        } else if channel == "orderBookL2_25" || channel == "orderbook" {
             MessageType::L2Event
-        } else if table == "instrument_info" {
+        } else if channel == "instrument_info" || channel == "tickers" {
             MessageType::Ticker
-        } else if table == "klineV2" || table == "candle" {
+        } else if channel == "klineV2" || channel == "candle" || channel == "kline" {
             MessageType::Candlestick
         } else {
             MessageType::Other
@@ -223,6 +241,10 @@ pub(crate) fn parse_trade(
     market_type: MarketType,
     msg: &str,
 ) -> Result<Vec<TradeMsg>, SimpleError> {
+    if let Some(value) = super::bybit_v5::envelope(msg, "publicTrade.")? {
+        return super::bybit_v5::parse_trade(market_type, msg, value);
+    }
+
     match market_type {
         MarketType::InverseSwap | MarketType::InverseFuture => {
             let ws_msg =
@@ -309,6 +331,10 @@ pub(crate) fn parse_l2(
     market_type: MarketType,
     msg: &str,
 ) -> Result<Vec<OrderBookMsg>, SimpleError> {
+    if let Some(value) = super::bybit_v5::envelope(msg, "orderbook.")? {
+        return super::bybit_v5::parse_l2(market_type, msg, value);
+    }
+
     let ws_msg = serde_json::from_str::<RawOrderbookMsg>(msg).map_err(|_e| {
         SimpleError::new(format!("Failed to deserialize {msg} to RawOrderbookMsg"))
     })?;
@@ -415,6 +441,10 @@ pub(crate) fn parse_candlestick(
     market_type: MarketType,
     msg: &str,
 ) -> Result<Vec<CandlestickMsg>, SimpleError> {
+    if let Some(value) = super::bybit_v5::envelope(msg, "kline.")? {
+        return super::bybit_v5::parse_candlestick(market_type, msg, value);
+    }
+
     match market_type {
         MarketType::LinearSwap => {
             let ws_msg = serde_json::from_str::<WebsocketMsg<RawCandlestickMsg>>(msg)

@@ -8,6 +8,7 @@ pub mod bitmex;
 pub(super) mod bitstamp;
 pub(super) mod bitz;
 pub(super) mod bybit;
+mod bybit_v5;
 pub(super) mod coinbase_pro;
 pub(super) mod deribit;
 pub(super) mod dydx;

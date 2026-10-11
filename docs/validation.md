@@ -18,9 +18,19 @@ The complete 96-case native unit suite was rerun successfully after this repair.
 
 The deprecated `/v2/public/symbols` returns HTTP404. The real current [v5 instrument API](https://bybit-exchange.github.io/docs/v5/market/instrument) returns both categories, with cursor pagination and explicit contract types. All **10 original Bybit metadata cases pass** against that API. Delivery timestamps and price/quantity limits come from the real response. Existing exact BTC limit assertions were updated only to match the captured current metadata; no test cases or contract-family assertions were removed.
 
-[Captured public metadata](maintenance/bybit-v5-public-metadata.json) records the BTC instruments used by those assertions. Current USDC perpetual `PERP` symbols retain their base/USDC pair and linear swap identity in the licensed pair patch. This result does not claim completion of Bybit's separate deprecated REST trading or websocket APIs.
+[Captured public metadata](maintenance/bybit-v5-public-metadata.json) records the BTC instruments used by those assertions. Current USDC perpetual `PERP` symbols retain their base/USDC pair and linear swap identity in the licensed pair patch. The subsequent REST and websocket migration is described below; metadata success alone is not evidence that every live stream delivers data.
 
 V5 public instruments do not expose authenticated account fees. Returned fees are explicitly labeled published VIP0 baselines in `info.feeSource`: [ordinary derivatives](https://www.bybit.com/en/help-center/article/Trading-Fee-Structure) and [TradFi perpetual rates](https://announcements.bybit.com/en/article/tradfi-perpetuals-lower-fees-across-all-tiers-bltb196506dada4be39/). They are estimates; authenticated account rates can differ.
+
+## Bybit v5 public REST and streaming follow-up
+
+Both native websocket clients now use real v5 endpoints and `publicTrade`, `orderbook.50`, `tickers` and `kline` topics. The licensed parser decodes genuine v5 trade, snapshot/delta order-book and candle fields while retaining the original legacy decoders. Inverse candle turnover is base volume and reported volume is quote volume; zero-quantity book deletions are preserved. Current futures fixtures admit only a listed contract with the same base, USD settlement and inverse-future identity.
+
+All **9 existing public REST cases pass** against real v5 order-book, open-interest and account-ratio endpoints. The snapshot retains the original 50-row total through 25 bids and 25 asks. All **24 original legacy Bybit parser cases pass**. The final native workspace run still passes all **96** existing unit cases, and the final all-target build passes.
+
+The complete websocket target has **13 passed and 3 failed**; the complete crawler target has **19 passed and 2 failed**. Their remaining original inverse-future trade subscriptions receive no trades within the original 60-second websocket or 30-second crawler deadlines. Existing nonempty-message assertions remain failures. No venue, contract family or artificial event substitutes for that missing delivery.
+
+The wider licensed parser regression run also exposes an unrelated existing BitMEX contract-value metadata failure (`openInterest` missing in current instrument responses), followed by poisoned shared initialization. This is retained in the exact command records; the 24-case Bybit result does not claim that entire vendor suite passes.
 
 ## Subsequent current-protocol results
 
@@ -42,4 +52,4 @@ Both local parser/pair patches retain upstream source and Apache licenses with p
 
 [Portable command records](maintenance/index.html) retain exact commands, outcomes, log hashes and available tracked source snapshots. Earlier exploratory failures and interrupted runs remain visible. Untracked additions are explicitly outside the tracked-diff snapshot hash.
 
-[Engineering guide and seven offline diagrams](ayu-develop.html) · [Development workflow](development.md)
+[Engineering guide and eight offline diagrams](ayu-develop.html) · [Development workflow](development.md)

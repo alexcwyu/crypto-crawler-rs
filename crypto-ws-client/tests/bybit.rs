@@ -1,8 +1,12 @@
+#[path = "../../test_support/listed_contracts.rs"]
+mod listed_contracts;
+use crypto_market_type::MarketType;
 #[macro_use]
 mod utils;
 
 #[cfg(test)]
 mod bybit_inverse_future {
+    use super::{MarketType, listed_contracts};
     use crypto_ws_client::{BybitInverseWSClient, WSClient};
 
     #[tokio::test(flavor = "multi_thread")]
@@ -10,7 +14,10 @@ mod bybit_inverse_future {
         gen_test_code!(
             BybitInverseWSClient,
             subscribe,
-            &[("trade".to_string(), "BTCUSDZ22".to_string())]
+            &[(
+                "publicTrade".to_string(),
+                tokio::task::block_in_place(|| listed_contracts::current_expiring_symbol("bybit", MarketType::InverseFuture, "BTCUSDZ22"))
+            )]
         );
     }
 
@@ -19,31 +26,55 @@ mod bybit_inverse_future {
         gen_test_code!(
             BybitInverseWSClient,
             send,
-            &[r#"{"op":"subscribe","args":["trade.BTCUSDZ22"]}"#.to_string()]
+            &[format!(
+                r#"{{"op":"subscribe","args":["publicTrade.{}"]}}"#,
+                tokio::task::block_in_place(|| listed_contracts::current_expiring_symbol("bybit", MarketType::InverseFuture, "BTCUSDZ22"))
+            )]
         );
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn subscribe_trade() {
-        gen_test_code!(BybitInverseWSClient, subscribe_trade, &["BTCUSDZ22".to_string()]);
+        gen_test_code!(
+            BybitInverseWSClient,
+            subscribe_trade,
+            &[tokio::task::block_in_place(|| listed_contracts::current_expiring_symbol("bybit", MarketType::InverseFuture, "BTCUSDZ22"))]
+        );
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn subscribe_orderbook() {
-        gen_test_code!(BybitInverseWSClient, subscribe_orderbook, &["BTCUSDZ22".to_string()]);
+        gen_test_code!(
+            BybitInverseWSClient,
+            subscribe_orderbook,
+            &[tokio::task::block_in_place(|| listed_contracts::current_expiring_symbol("bybit", MarketType::InverseFuture, "BTCUSDZ22"))]
+        );
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn subscribe_ticker() {
-        gen_test_code!(BybitInverseWSClient, subscribe_ticker, &["BTCUSDZ22".to_string()]);
+        gen_test_code!(
+            BybitInverseWSClient,
+            subscribe_ticker,
+            &[tokio::task::block_in_place(|| listed_contracts::current_expiring_symbol("bybit", MarketType::InverseFuture, "BTCUSDZ22"))]
+        );
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn subscribe_candlestick() {
-        gen_test_subscribe_candlestick!(BybitInverseWSClient, &[("BTCUSDZ22".to_string(), 60)]);
         gen_test_subscribe_candlestick!(
             BybitInverseWSClient,
-            &[("BTCUSDZ22".to_string(), 2592000)]
+            &[(
+                tokio::task::block_in_place(|| listed_contracts::current_expiring_symbol("bybit", MarketType::InverseFuture, "BTCUSDZ22")),
+                60
+            )]
+        );
+        gen_test_subscribe_candlestick!(
+            BybitInverseWSClient,
+            &[(
+                tokio::task::block_in_place(|| listed_contracts::current_expiring_symbol("bybit", MarketType::InverseFuture, "BTCUSDZ22")),
+                2592000
+            )]
         );
     }
 }
@@ -57,7 +88,7 @@ mod bybit_inverse_swap {
         gen_test_code!(
             BybitInverseWSClient,
             subscribe,
-            &[("trade".to_string(), "BTCUSD".to_string())]
+            &[("publicTrade".to_string(), "BTCUSD".to_string())]
         );
     }
 
@@ -66,7 +97,7 @@ mod bybit_inverse_swap {
         gen_test_code!(
             BybitInverseWSClient,
             send,
-            &[r#"{"op":"subscribe","args":["trade.BTCUSD"]}"#.to_string()]
+            &[r#"{"op":"subscribe","args":["publicTrade.BTCUSD"]}"#.to_string()]
         );
     }
 

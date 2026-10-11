@@ -1,3 +1,5 @@
+#[path = "../../test_support/listed_contracts.rs"]
+mod listed_contracts;
 use std::collections::HashMap;
 
 use crypto_market_type::MarketType;
@@ -9,23 +11,30 @@ use test_case::test_case;
 #[test_case(MarketType::InverseSwap, "BTCUSD")]
 #[test_case(MarketType::LinearSwap, "BTCUSDT")]
 fn test_l2_snapshot(market_type: MarketType, symbol: &str) {
+    let listed_symbol = listed_contracts::current_expiring_symbol("bybit", market_type, symbol);
+    let symbol = listed_symbol.as_str();
     let text = fetch_l2_snapshot("bybit", market_type, symbol, Some(3)).unwrap();
 
     let obj = serde_json::from_str::<HashMap<String, Value>>(&text).unwrap();
     let result = obj.get("result").unwrap();
 
-    assert!(result.is_array());
-    assert_eq!(result.as_array().unwrap().len(), 50);
+    assert!(result.is_object());
+    let bids = result["b"].as_array().unwrap();
+    let asks = result["a"].as_array().unwrap();
+    assert!(!bids.is_empty() && !asks.is_empty());
+    assert_eq!(bids.len() + asks.len(), 50);
 }
 
 #[test_case(MarketType::InverseFuture, "BTCUSDZ22")]
 #[test_case(MarketType::InverseSwap, "BTCUSD")]
 #[test_case(MarketType::LinearSwap, "BTCUSDT")]
 fn test_open_interest(market_type: MarketType, symbol: &str) {
+    let listed_symbol = listed_contracts::current_expiring_symbol("bybit", market_type, symbol);
+    let symbol = listed_symbol.as_str();
     let text = fetch_open_interest("bybit", market_type, Some(symbol)).unwrap();
 
     let obj = serde_json::from_str::<HashMap<String, Value>>(&text).unwrap();
-    let result = obj.get("result").unwrap().as_array().unwrap();
+    let result = obj.get("result").unwrap()["list"].as_array().unwrap();
 
     assert!(!result.is_empty());
 }
@@ -34,10 +43,12 @@ fn test_open_interest(market_type: MarketType, symbol: &str) {
 #[test_case(MarketType::InverseSwap, "BTCUSD")]
 #[test_case(MarketType::LinearSwap, "BTCUSDT")]
 fn test_long_short_ratio(market_type: MarketType, symbol: &str) {
+    let listed_symbol = listed_contracts::current_expiring_symbol("bybit", market_type, symbol);
+    let symbol = listed_symbol.as_str();
     let text = fetch_long_short_ratio("bybit", market_type, symbol).unwrap();
 
     let obj = serde_json::from_str::<HashMap<String, Value>>(&text).unwrap();
-    let result = obj.get("result").unwrap().as_array().unwrap();
+    let result = obj.get("result").unwrap()["list"].as_array().unwrap();
 
     assert!(!result.is_empty());
 }
