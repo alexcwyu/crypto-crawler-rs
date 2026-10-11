@@ -54,3 +54,5 @@ The current Deribit target passes all 24 existing cases (one pre-existing ignore
 ## Final verification scope
 
 The final all-target build and all 96 native unit cases pass. Live integration checks are distinct: all 86 existing targets were attempted, with external failures and four target timeouts recorded. The final documentation run passes 12 examples and fails the original Coinbase authenticated full/level3 example. See [validation.md](validation.md) for complete and subsequent focused results.
+
+Binance metadata classifies both regular and TradFi perpetual contracts as swaps. Order increments are actual venue price/lot filters. Current quote assets are admitted from the returned metadata rather than a frozen USDT/BUSD list. The original Binance metadata target now passes all 14 active cases; two existing ignored option cases remain unchanged.

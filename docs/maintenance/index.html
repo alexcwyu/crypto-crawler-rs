@@ -30,6 +30,41 @@ th,td{min-width:120px;overflow-wrap:normal}
 </thead>
 <tbody>
 <tr>
+<td>binance-current-classification-filter-existing-tests</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">6.04s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-markets --test binance --locked -- --test-threads=8</code></td>
+<td>test result: FAILED. 13 passed; 1 failed; 2 ignored; 0 measured; 0 filtered out; finished in 2.96s</td>
+</tr>
+<tr>
+<td>binance-current-classification-filter-existing-tests-final</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">4.89s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-markets --test binance --locked -- --test-threads=8</code></td>
+<td>test result: FAILED. 13 passed; 1 failed; 2 ignored; 0 measured; 0 filtered out; finished in 2.85s</td>
+</tr>
+<tr>
+<td>binance-current-classification-filter-existing-tests-verified</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.74s</td>
+<td><code>env REST_RETRY_COUNT=1 cargo test -p crypto-markets --test binance --locked -- --test-threads=8</code></td>
+<td>test result: ok. 14 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 3.06s</td>
+</tr>
+<tr>
+<td>binance-metadata-all-target-build</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">42.77s</td>
+<td><code>cargo build --workspace --all-targets --locked</code></td>
+<td>See exit status; no test-count assertion.</td>
+</tr>
+<tr>
+<td>binance-metadata-complete-native-unit-tests</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8.32s</td>
+<td><code>cargo test --workspace --lib --locked</code></td>
+<td>test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.41s<br>test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 3 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.40s<br>test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s<br>test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s</td>
+</tr>
+<tr>
 <td>bitget-v2-all-symbols-diagnostic</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">5.65s</td>

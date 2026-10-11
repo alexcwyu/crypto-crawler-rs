@@ -8,6 +8,12 @@ All **86 supplied integration targets** were attempted. The inventory's complete
 
 No new cases were added or original cases disabled. Retired venues, missing authentication, missing currently-listed contract families and original live-arrival deadlines remain observable failures. Original received-message, market-family, option-side and parser assertions are retained. Network requests and receiver waits are bounded; no artificial market events or substitute venues are used.
 
+## Binance metadata follow-up
+
+The complete existing Binance metadata target now passes **14 active cases with 2 original ignored cases**. Actual `TRADIFI_PERPETUAL` records are classified as swaps, not dated futures. Both linear and inverse order increments come from `PRICE_FILTER.tickSize` and `LOT_SIZE.stepSize`; display precision is not an order increment. The exact BTCUSDT tick assertion remains numeric and now matches the current real `0.10` filter. The original symbol test compares current quote metadata and retains every market-type assertion.
+
+The complete 96-case native unit suite was rerun successfully after this repair. [Captured public metadata](maintenance/binance-classification-evidence.json) and [Binance exchange information](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Exchange-Information) document the source of this change.
+
 ## Subsequent current-protocol results
 
 - Binance REST inverse futures: 6 passed; linear futures: 6 passed, using real currently-listed quarterly metadata.

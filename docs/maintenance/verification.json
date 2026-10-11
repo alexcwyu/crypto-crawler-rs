@@ -1,8 +1,145 @@
 {
   "repository": "crypto-crawler-rs",
-  "source_commit_before_documentation_commit": "f3425a066c85e6a77a94658f916f4037a4587dd4",
+  "source_commit_before_documentation_commit": "d05a87de6f5c479a771ae4131c3c27fa54dbacff",
   "recorded_on": "2026-10-12",
   "records": [
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "binance",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 6.04,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "2bc80dfda036d4faa3d20bd5ec72008c5cdaa805",
+        "tracked_source_diff_sha256": "f893fbdf3cdc9d95b5ecfffb2c970d14638e7f42f3cd8b0f6390911d53fa139c",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "binance-current-classification-filter-existing-tests",
+      "original_log": "crypto-crawler-rs-binance-current-classification-filter-existing-tests.log",
+      "log_sha256": "876ee6a6f14585ca9bba960d994524b1bc56c7bf8a6074a575489fc172085ee5",
+      "outcomes": [
+        "test result: FAILED. 13 passed; 1 failed; 2 ignored; 0 measured; 0 filtered out; finished in 2.96s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "binance",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 101,
+      "seconds": 4.89,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "2bc80dfda036d4faa3d20bd5ec72008c5cdaa805",
+        "tracked_source_diff_sha256": "6ff377dc4868f27ca83c5a9372b85563a785791537a93f9b2dafbc9a58e9bede",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "binance-current-classification-filter-existing-tests-final",
+      "original_log": "crypto-crawler-rs-binance-current-classification-filter-existing-tests-final.log",
+      "log_sha256": "4e3de82326a8d1a788841528d4853968ac08d68c1ae45bca972b2214e9b2c69e",
+      "outcomes": [
+        "test result: FAILED. 13 passed; 1 failed; 2 ignored; 0 measured; 0 filtered out; finished in 2.85s"
+      ]
+    },
+    {
+      "command": [
+        "env",
+        "REST_RETRY_COUNT=1",
+        "cargo",
+        "test",
+        "-p",
+        "crypto-markets",
+        "--test",
+        "binance",
+        "--locked",
+        "--",
+        "--test-threads=8"
+      ],
+      "exit_code": 0,
+      "seconds": 3.74,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "2bc80dfda036d4faa3d20bd5ec72008c5cdaa805",
+        "tracked_source_diff_sha256": "ce8fe1388b71aef33e7abb576032fb050f9ee6feda95a39570137b029cecfcdb",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "binance-current-classification-filter-existing-tests-verified",
+      "original_log": "crypto-crawler-rs-binance-current-classification-filter-existing-tests-verified.log",
+      "log_sha256": "35dfd4a3d763d52a9d607050c7c18afc7275948d0074025c602513dc11265ceb",
+      "outcomes": [
+        "test result: ok. 14 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 3.06s"
+      ]
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--all-targets",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 42.77,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "2bc80dfda036d4faa3d20bd5ec72008c5cdaa805",
+        "tracked_source_diff_sha256": "ce8fe1388b71aef33e7abb576032fb050f9ee6feda95a39570137b029cecfcdb",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "binance-metadata-all-target-build",
+      "original_log": "crypto-crawler-rs-binance-metadata-all-target-build.log",
+      "log_sha256": "70da21b3a03f9c9c9901fea52d6101953fca612fbdd0f6eb60ac1b5f0927867c",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--lib",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 8.32,
+      "cwd": "<workspace>/crypto-crawler-rs",
+      "source_snapshot": {
+        "head": "2bc80dfda036d4faa3d20bd5ec72008c5cdaa805",
+        "tracked_source_diff_sha256": "ce8fe1388b71aef33e7abb576032fb050f9ee6feda95a39570137b029cecfcdb",
+        "note": "Tracked source snapshot at command start; untracked additions and later edits are not covered by this hash."
+      },
+      "check": "binance-metadata-complete-native-unit-tests",
+      "original_log": "crypto-crawler-rs-binance-metadata-complete-native-unit-tests.log",
+      "log_sha256": "f1b6018948296d941690941e53adddd8ad6b3a6dd908a69171357681e97631b3",
+      "outcomes": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.41s",
+        "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 3 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.40s",
+        "test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+        "test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s"
+      ]
+    },
     {
       "command": [
         "env",
