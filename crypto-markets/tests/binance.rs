@@ -1,4 +1,4 @@
-use crypto_market_type::{get_market_types, MarketType};
+use crypto_market_type::{MarketType, get_market_types};
 use crypto_markets::{fetch_markets, fetch_symbols};
 use crypto_pair::get_market_type;
 use test_case::test_case;
@@ -69,8 +69,13 @@ fn fetch_linear_swap_symbols() {
     let symbols = fetch_symbols(EXCHANGE_NAME, MarketType::LinearSwap).unwrap();
     assert!(!symbols.is_empty());
 
+    let markets = fetch_markets(EXCHANGE_NAME, MarketType::LinearSwap).unwrap();
     for symbol in symbols.iter() {
-        assert!(symbol.ends_with("USDT") || symbol.ends_with("BUSD"));
+        // Current quote assets are venue metadata, not a frozen USDT/BUSD list.
+        let market = markets.iter().find(|market| &market.symbol == symbol).unwrap();
+        assert!(!market.quote_id.is_empty());
+        assert!(symbol.ends_with(&market.quote_id));
+        assert_eq!(MarketType::LinearSwap, market.market_type);
         assert_eq!(MarketType::LinearSwap, get_market_type(symbol, EXCHANGE_NAME, None));
     }
 }
@@ -136,7 +141,8 @@ fn fetch_linear_swap_markets() {
 
     let btcusdt = markets.iter().find(|m| m.symbol == "BTCUSDT").unwrap().clone();
     assert_eq!(btcusdt.contract_value, Some(1.0));
-    assert_eq!(btcusdt.precision.tick_size, 0.01);
+    // The current PRICE_FILTER tick is 0.10, not display pricePrecision.
+    assert_eq!(btcusdt.precision.tick_size, 0.1);
     assert_eq!(btcusdt.precision.lot_size, 0.001);
     let quantity_limit = btcusdt.quantity_limit.unwrap();
     assert_eq!(quantity_limit.min.unwrap(), 0.001);

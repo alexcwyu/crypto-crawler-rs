@@ -1,5 +1,5 @@
 use super::utils::{binance_http_get, parse_filter};
-use crate::{error::Result, market::*, Market, MarketType};
+use crate::{Market, MarketType, error::Result, market::*};
 
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -49,7 +49,7 @@ fn fetch_linear_markets_raw() -> Result<Vec<LinearSwapMarket>> {
 pub(super) fn fetch_linear_swap_symbols() -> Result<Vec<String>> {
     let symbols = fetch_linear_markets_raw()?
         .into_iter()
-        .filter(|m| m.contractType == "PERPETUAL")
+        .filter(|m| matches!(m.contractType.as_str(), "PERPETUAL" | "TRADIFI_PERPETUAL"))
         .map(|m| m.symbol)
         .collect::<Vec<String>>();
     Ok(symbols)
@@ -58,7 +58,7 @@ pub(super) fn fetch_linear_swap_symbols() -> Result<Vec<String>> {
 pub(super) fn fetch_linear_future_symbols() -> Result<Vec<String>> {
     let symbols = fetch_linear_markets_raw()?
         .into_iter()
-        .filter(|m| m.contractType != "PERPETUAL")
+        .filter(|m| !matches!(m.contractType.as_str(), "PERPETUAL" | "TRADIFI_PERPETUAL"))
         .map(|m| m.symbol)
         .collect::<Vec<String>>();
     Ok(symbols)
@@ -71,7 +71,8 @@ fn fetch_linear_markets() -> Result<Vec<Market>> {
         .map(|m| {
             Market {
                 exchange: "binance".to_string(),
-                market_type: if m.contractType == "PERPETUAL" {
+                market_type: if matches!(m.contractType.as_str(), "PERPETUAL" | "TRADIFI_PERPETUAL")
+                {
                     MarketType::LinearSwap
                 } else {
                     MarketType::LinearFuture
@@ -88,8 +89,12 @@ fn fetch_linear_markets() -> Result<Vec<Market>> {
                 // see https://www.binance.com/en/fee/futureFee
                 fees: Fees { maker: 0.0002, taker: 0.0004 },
                 precision: Precision {
-                    tick_size: 1.0 / (10_i64.pow(m.pricePrecision as u32) as f64),
-                    lot_size: 1.0 / (10_i64.pow(m.quantityPrecision as u32) as f64),
+                    tick_size: parse_filter(&m.filters, "PRICE_FILTER", "tickSize")
+                        .parse::<f64>()
+                        .unwrap(),
+                    lot_size: parse_filter(&m.filters, "LOT_SIZE", "stepSize")
+                        .parse::<f64>()
+                        .unwrap(),
                 },
                 quantity_limit: Some(QuantityLimit {
                     min: parse_filter(&m.filters, "LOT_SIZE", "minQty").parse::<f64>().ok(),
@@ -100,7 +105,10 @@ fn fetch_linear_markets() -> Result<Vec<Market>> {
                     notional_max: None,
                 }),
                 contract_value: Some(1.0),
-                delivery_date: if m.contractType == "PERPETUAL" {
+                delivery_date: if matches!(
+                    m.contractType.as_str(),
+                    "PERPETUAL" | "TRADIFI_PERPETUAL"
+                ) {
                     None
                 } else {
                     Some(m.deliveryDate)
