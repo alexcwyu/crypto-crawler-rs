@@ -1,5 +1,8 @@
 # Crypto crawler: validation results
 
+
+Current campaign decision: the user explicitly excludes the remaining failing tests from completion requirements. Historical failures below remain failures; they are not relabeled as passes. Source/build/tooling/documentation requirements remain in scope.
+
 All workspace targets compile with the final maintained fixtures and licensed protocol patches. The complete native unit suite passes: **96 passed, 0 failed**. The final complete documentation run has **12 passed, 1 failed**; the failing original Coinbase full/level3 example requires authentication on the current venue.
 
 ## Complete existing integration inventory
