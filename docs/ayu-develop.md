@@ -1,219 +1,215 @@
-# crypto-crawler-rs: architecture, features and workflows
+# Crypto Crawler Rust: workflow, design and architecture
 
-Updated: 2026-10-12 · Branch: `feature/ayu_develop` · Source snapshot: `f3425a0`
+Updated: **2026-10-13**
+Reviewed Git hash: `71cece019a390f5c0fbf4b33f4dddc3ac461ef8e`
+Branch: `feature/ayu_develop`
+Source diff SHA256: `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`
+Scope: **Market data toolkit** / Maintenance: **active**
+Languages: Rust
 
-[Development and layout](development.md) · [Validation evidence](validation.md) · [HTML edition](ayu-develop.html)
+[HTML edition](ayu-develop.html) / [Development](development.md) / [Historical validation](validation.md) / [Full system comparison](../../docs/index.html)
 
 ## Purpose and scope
 
-A multi-crate Rust cryptocurrency market-data toolkit. Venue crawlers combine market discovery, REST snapshots and WebSocket messages, parse exchange payloads and expose normalized message types. It also includes REST clients and a blocking unified HTTP client.
+Collects public crypto exchange streams and REST snapshots into timestamped raw-message envelopes; a data acquisition workspace rather than a strategy or matching engine.
 
-## Features
+## Features and support boundaries
 
-- Independent spot, inverse, linear, option and swap market categories.
-- REST and WebSocket adapters cover multiple exchanges.
-- Callbacks expose streaming messages to consumer applications.
-- Market and symbol utilities support feed setup and filtering.
-- The matching protobuf runtime is pinned for the externally generated crypto-message schema.
+Native = implemented here. Integration = supplied through a named host/API. Limited = material restriction. Not provided = evidenced scope exclusion. Unverified = support/absence not established. Not applicable = outside this artifact type.
 
-## Components and responsibilities
+| Capability | Status | Implementation and limits | Source |
+|---|---|---|---|
+| Backtesting | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Live execution | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Paper trading | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Event driven | Native | Subscription callbacks/client loops emit asynchronous feed messages; this is feed handling rather than trading events. | [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [subscribe_with_lock](../crypto-crawler/src/crawlers/utils.rs) ([L318](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L318)) |
+| Vectorized | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Order management | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Order types | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Multi venue | Native | Public Rust acquisition API routes multiple crypto venues and emits raw payload envelopes. | [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223)) / [crawl_l2_event](../crypto-crawler/src/lib.rs) ([L243](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L243)) / [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) |
+| Crypto | Native | Public Rust acquisition API routes multiple crypto venues and emits raw payload envelopes. | [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223)) / [crawl_l2_event](../crypto-crawler/src/lib.rs) ([L243](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L243)) / [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) |
+| Equities | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Futures | Limited | Market-family map includes crypto futures/swaps and Deribit European options; endpoint/contract availability is not proven by the map. | [get_market_types](../crypto-market-type/src/lib.rs) ([L53](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-market-type/src/lib.rs#L53)) |
+| Options | Limited | Market-family map includes crypto futures/swaps and Deribit European options; endpoint/contract availability is not proven by the map. | [get_market_types](../crypto-market-type/src/lib.rs) ([L53](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-market-type/src/lib.rs#L53)) |
+| Forex | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Strategy api | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Optimization | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Machine learning | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Reinforcement learning | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Portfolio | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Risk management | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Performance analytics | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Historical data | Limited | Message supports TSV encode/decode for caller-managed files; inspected snapshot collector retrieves current depth, not a maintained historical store. | [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) / [crawl_snapshot](../crypto-crawler/src/crawlers/utils.rs) ([L106](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L106)) |
+| Streaming data | Native | Public Rust acquisition API routes multiple crypto venues and emits raw payload envelopes. | [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223)) / [crawl_l2_event](../crypto-crawler/src/lib.rs) ([L243](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L243)) / [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) |
+| Persistence | Limited | Message supports TSV encode/decode for caller-managed files; inspected snapshot collector retrieves current depth, not a maintained historical store. | [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) / [crawl_snapshot](../crypto-crawler/src/crawlers/utils.rs) ([L106](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L106)) |
+| Data pipeline | Native | Public Rust acquisition API routes multiple crypto venues and emits raw payload envelopes. | [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223)) / [crawl_l2_event](../crypto-crawler/src/lib.rs) ([L243](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L243)) / [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) |
+| Web ui | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Cli | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
+| Monitoring | Limited | Collection records received_at and logs failures/backoff; no trading/account monitoring is established. | [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) / [fetch_symbols_retry](../crypto-crawler/src/crawlers/utils.rs) ([L15](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L15)) |
+| Extension api | Native | Public Rust acquisition API routes multiple crypto venues and emits raw payload envelopes. | [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223)) / [crawl_l2_event](../crypto-crawler/src/lib.rs) ([L243](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L243)) / [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) |
+| Native acceleration | Native | Acquisition, metadata control and message encoding implemented in Rust. | [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) |
+| Distributed execution | Unverified | Not established by the inspected implementation boundaries; no absence or production claim is made. | Not applicable to this repository scope. |
 
-| Component | Responsibility | Implementation |
-| --- | --- | --- |
-| Market discovery | Retrieves supported markets and contract metadata | [crypto-markets/src/lib.rs](../crypto-markets/src/lib.rs) |
-| REST snapshots | Fetches public exchange snapshots and historical resources | [crypto-rest-client/src/lib.rs](../crypto-rest-client/src/lib.rs) |
-| WebSocket feeds | Maintains venue-specific streaming connections | [crypto-ws-client/src/lib.rs](../crypto-ws-client/src/lib.rs) |
-| Crawler orchestration | Coordinates discovery, connections and message callbacks | [crypto-crawler/src/lib.rs](../crypto-crawler/src/lib.rs) |
-| Message model | Classifies messages and stores venue/time/payload information | [crypto-crawler/src/msg.rs](../crypto-crawler/src/msg.rs) |
+## System components
 
-## Architecture and boundaries
+| Component | Responsibility | Source |
+|---|---|---|
+| Crawler API | Selects exchange/market/message feed. | [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223)) / [crawl_l2_event](../crypto-crawler/src/lib.rs) ([L243](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L243)) / [crawl_l2_snapshot](../crypto-crawler/src/lib.rs) ([L277](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L277)) |
+| Metadata discovery | Fetches/validates available symbols with retry and shared rate control. | [fetch_symbols_retry](../crypto-crawler/src/crawlers/utils.rs) ([L15](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L15)) / [get_market_types](../crypto-market-type/src/lib.rs) ([L53](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-market-type/src/lib.rs#L53)) |
+| WebSocket collection | Manages subscriptions, discovery, connection chunks and client run lifecycle. | [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [subscribe_with_lock](../crypto-crawler/src/crawlers/utils.rs) ([L318](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L318)) |
+| REST snapshots | Collects depth snapshots with retries and cooldown. | [crawl_snapshot](../crypto-crawler/src/crawlers/utils.rs) ([L106](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L106)) |
+| Message boundary | Preserves raw payload plus receipt metadata and serializable output. | [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) |
 
-The following view shows the principal responsibilities and their data-flow relationship. It is a conceptual architecture view; each implementation link above identifies the owning source. Native or external services retain their own lifecycle and configuration.
+## Architecture and component boundaries
+
+The component view summarizes inspected responsibility boundaries. Arrows identify the documented API/data dependencies; this is not a deployment-readiness claim.
 
 ```mermaid
 flowchart LR
-  C0["Market discovery"]
-  C1["REST snapshots"]
-  C2["WebSocket feeds"]
-  C3["Crawler orchestration"]
-  C4["Message model"]
-  C3 --> C0
-  C3 --> C1
-  C3 --> C2
-  C2 --> C3
-  C3 --> C4
+  N0["Crawler API"]
+  N1["Metadata discovery"]
+  N2["WebSocket collection"]
+  N3["REST snapshots"]
+  N4["Message boundary"]
+  N0 -->|"Routes venue/message selection."| N2
+  N2 -->|"Fetches and validates subscription symbols."| N1
+  N0 -->|"Selects snapshot type."| N3
+  N3 -->|"Sends timestamped raw Message to caller channel."| N4
 ```
 
-### Component ownership
+- Routes venue/message selection.: [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223)) / [crawl_l2_event](../crypto-crawler/src/lib.rs) ([L243](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L243))
+- Fetches and validates subscription symbols.: [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [fetch_symbols_retry](../crypto-crawler/src/crawlers/utils.rs) ([L15](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L15))
+- Selects snapshot type.: [crawl_l2_snapshot](../crypto-crawler/src/lib.rs) ([L277](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L277))
+- Sends timestamped raw Message to caller channel.: [crawl_snapshot](../crypto-crawler/src/crawlers/utils.rs) ([L106](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L106)) / [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12))
 
-The boundaries below distinguish entry points from their state/model and integration responsibilities. Data validation, numerical semantics and external protocol handling belong in the owning modules rather than in documentation or deployment scripts.
+## Design decisions
 
-```mermaid
-flowchart TB
-  Caller["Application or operator"]
-  Caller --> M0["Market discovery"]
-  Caller --> M1["REST snapshots"]
-  Caller --> M2["WebSocket feeds"]
-  Caller --> M3["Crawler orchestration"]
-  Caller --> M4["Message model"]
-```
+| Decision | Rationale | Tradeoff | Evidence |
+|---|---|---|---|
+| Preserve raw exchange JSON in a uniform metadata envelope. | Retains source payload and local receipt time for downstream consumers. | Consumer must normalize message schemas and provide durable storage. | [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) |
+| Discover subscriptions and enforce venue-specific request cooldowns. | Limits overloaded connections and REST rate contention across processes. | Venue maps/cooldowns age; configured entries are not live availability guarantees. | [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [fetch_symbols_retry](../crypto-crawler/src/crawlers/utils.rs) ([L15](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L15)) / [get_market_types](../crypto-market-type/src/lib.rs) ([L53](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-market-type/src/lib.rs#L53)) |
 
-## Types and relationships
-
-This diagram names types present in the linked source. Edges describe the documented relationship; they do not imply additional inheritance.
+## Class and interface relationships
 
 ```mermaid
 classDiagram
-  class Message
-  class MessageType
-  class MarketType
-  Message --> MessageType : category
+  class N0["crawl_trade"] {
+    <<function>>
+  }
+  class N1["crawl_event"] {
+    <<function>>
+  }
+  class N2["subscribe_with_lock"] {
+    <<function>>
+  }
+  class N3["fetch_symbols_retry"] {
+    <<function>>
+  }
+  class N4["crawl_snapshot"] {
+    <<function>>
+  }
+  class N5["Message"] {
+    <<struct>>
+    +new()
+    +new_with_symbol()
+    +to_tsv_string()
+    +from_tsv_string()
+    +fmt()
+  }
+  N0 ..> N1 : Generic venue trade path delegates to crawl_event.
+  N1 ..> N3 : Automatically resolves market symbols.
+  N1 ..> N2 : Subscribes the resolved symbols before WSClient.run.
+  N4 ..> N5 : Wraps raw REST result using Message..new_with_symbol.
 ```
 
-- [`Message`](../crypto-crawler/src/msg.rs)
-- [`MessageType`](../crypto-msg-type/src/lib.rs)
-- [`MarketType`](../crypto-market-type/src/lib.rs)
+Each node is a reviewed source symbol. Function/module nodes are explicitly labeled; they do not imply Python classes. Only reviewed relationships are drawn.
 
-## Runtime workflow
+- **crawl_trade** (function): [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223))
+- **crawl_event** (function): [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705))
+- **subscribe_with_lock** (function): [subscribe_with_lock](../crypto-crawler/src/crawlers/utils.rs) ([L318](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L318))
+- **fetch_symbols_retry** (function): [fetch_symbols_retry](../crypto-crawler/src/crawlers/utils.rs) ([L15](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L15))
+- **crawl_snapshot** (function): [crawl_snapshot](../crypto-crawler/src/crawlers/utils.rs) ([L106](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L106))
+- **Message** (struct): [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12))
 
-1. Select venue, market category and subscriptions.
-2. Discover valid symbols and obtain any required snapshots.
-3. Connect to the public WebSocket feed.
-4. Parse and normalize received exchange messages.
-5. Deliver messages to the registered consumer callback.
+## Workflow
+
+### Trade stream subscription
+
+Actual subscription call order is traced; envelope is the caller-facing data boundary. No endpoint was contacted, and raw messages do not establish a normalized historical database.
 
 ```mermaid
 flowchart TD
-  Start(["Start"])
-  W0["Select venue, market category and subscriptions."]
-  W1["Discover valid symbols and obtain any required snapshots."]
-  W2["Connect to the public WebSocket feed."]
-  W3["Parse and normalize received exchange messages."]
-  W4["Deliver messages to the registered consumer callback."]
-  Start --> W0
+  W0["Select an exchange, market type and symbol list."]
+  W1["Resolve symbols and check market compatibility."]
   W0 --> W1
+  W2["Create client, map MessageType to subscription and run/close client."]
   W1 --> W2
+  W3["Caller receives raw JSON Message with receipt time."]
   W2 --> W3
-  W3 --> W4
-  W4 --> Finish(["Result"])
 ```
 
-## Sequence of a typical operation
+1. Select an exchange, market type and symbol list.. [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223))
+2. Resolve symbols and check market compatibility.. [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [fetch_symbols_retry](../crypto-crawler/src/crawlers/utils.rs) ([L15](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L15))
+3. Create client, map MessageType to subscription and run/close client.. [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [subscribe_with_lock](../crypto-crawler/src/crawlers/utils.rs) ([L318](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L318))
+4. Caller receives raw JSON Message with receipt time.. [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12))
 
-This sequence expands the responsibility flow described above. The named participants correspond to the component table; error handling and any service-specific prerequisites remain part of the implementation.
+## Sequence
+
+Trade stream subscription
+
+Actual subscription call order is traced; envelope is the caller-facing data boundary. No endpoint was contacted, and raw messages do not establish a normalized historical database.
 
 ```mermaid
 sequenceDiagram
-  actor Operator
-  participant P0 as Market discovery
-  participant P1 as REST snapshots
-  participant P2 as WebSocket feeds
-  participant P3 as Crawler orchestration
-  participant P4 as Message model
-  Operator->>P3: Select venue, category and callback
-  P3->>P0: Discover valid subscriptions
-  P3->>P1: Obtain REST snapshot where required
-  P3->>P2: Start WebSocket subscriptions
-  loop Received exchange messages
-  P2-->>P3: Raw exchange payload
-  P3->>P4: Construct typed message
-  P4-->>Operator: Deliver consumer callback
-  end
+  participant N0 as Crawler API
+  participant N1 as Metadata discovery
+  participant N2 as WebSocket collection
+  N0->>N2: crawl_trade delegates to crawl_event.
+  N2->>N1: fetch_symbols_retry if symbol list is empty.
+  N2->>N2: subscribe_with_lock then WSClient.run and close.
 ```
 
-## Development and verification workflow
+- crawl_trade delegates to crawl_event.: [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223))
+- fetch_symbols_retry if symbol list is empty.: [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [fetch_symbols_retry](../crypto-crawler/src/crawlers/utils.rs) ([L15](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L15))
+- subscribe_with_lock then WSClient.run and close.: [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) / [subscribe_with_lock](../crypto-crawler/src/crawlers/utils.rs) ([L318](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L318))
 
-Sync the upstream refs, merge the actual default branch into `feature/ayu_develop`, resolve conflicts, install the documented environment and run the existing build/test commands. Keep lockfiles and source changes together so another checkout can reproduce the environment.
+## Strengths and limits
 
-```mermaid
-flowchart LR
-  Fetch["Fetch branches and tags"] --> Merge["Merge default into feature branch"]
-  Merge --> Install["Install locked toolchain/dependencies"]
-  Install --> Build["Compile and build"]
-  Build --> Tests["Run existing tests"]
-  Tests --> Docs["Verify docs, diagrams and links"]
-  Docs --> Commit["Commit reviewed changes"]
-```
+### Strengths
 
-### Commands
+- REST snapshots terminate when the output receiver disappears and metadata retries are bounded. [crawl_snapshot](../crypto-crawler/src/crawlers/utils.rs) ([L106](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L106)) / [fetch_symbols_retry](../crypto-crawler/src/crawlers/utils.rs) ([L15](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L15))
 
-```sh
-cargo build --workspace --all-targets --locked
-cargo test --workspace --locked
-```
+### Limitations
 
-The exact commands executed, interpreter/compiler versions, pass/fail counts and any prerequisites are recorded in [validation.md](validation.md). A syntax-only pass is reported separately from a package/native build and from runtime tests.
+- No algorithm execution, portfolio or order-management flow was established; the source is a market-data acquisition layer. [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223)) / [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12))
+- Retired venue routes and live authentication/arrival failures remain visible; current test exclusions must not imply all feeds work. [docs/validation.md](../docs/validation.md) ([L16](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/docs/validation.md#L10)) / [get_market_types](../crypto-market-type/src/lib.rs) ([L53](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-market-type/src/lib.rs#L53))
 
-## Source navigation
+## Validation scope
 
-These links refer to files in this checkout. They remain useful when the repository is opened locally; the source snapshot above identifies the revision used for this guide.
+The linked validation and command records preserve actual historical runs and user-authorized exclusions. This source/document review does not rerun application tests, establish live trading readiness or rank benchmark performance. Current data, credential and runtime prerequisites remain material.
 
-- [crypto-markets/src/lib.rs](../crypto-markets/src/lib.rs)
-- [crypto-rest-client/src/lib.rs](../crypto-rest-client/src/lib.rs)
-- [crypto-ws-client/src/lib.rs](../crypto-ws-client/src/lib.rs)
-- [crypto-crawler/src/lib.rs](../crypto-crawler/src/lib.rs)
-- [crypto-crawler/src/msg.rs](../crypto-crawler/src/msg.rs)
-- [crypto-msg-type/src/lib.rs](../crypto-msg-type/src/lib.rs)
-- [crypto-market-type/src/lib.rs](../crypto-market-type/src/lib.rs)
-- [.config/nextest.toml](../.config/nextest.toml)
-- [Cargo.toml](../Cargo.toml)
-- [crypto-client/Cargo.toml](../crypto-client/Cargo.toml)
-- [crypto-client/src/lib.rs](../crypto-client/src/lib.rs)
-- [crypto-crawler/Cargo.toml](../crypto-crawler/Cargo.toml)
-- [crypto-crawler/src/crawlers/binance.rs](../crypto-crawler/src/crawlers/binance.rs)
-- [crypto-crawler/src/crawlers/bitmex.rs](../crypto-crawler/src/crawlers/bitmex.rs)
-- [crypto-crawler/src/crawlers/deribit.rs](../crypto-crawler/src/crawlers/deribit.rs)
+[Repository validation](validation.md) / [Executed checks](maintenance/index.md)
 
-## Current endpoint routing and supplied fixture admission
+## Source map
 
-The current [OKX client](../crypto-ws-client/src/clients/okx.rs) owns separate public/business sockets unless a caller provides an explicit single-endpoint override. The subscription translator preserves the original operation and instrument IDs when partitioning commands. Candles use business; books, tickers and ordinary public channels use public. Both sockets run concurrently and both close during teardown. [Binance](../crypto-ws-client/src/clients/binance.rs) likewise separates its current linear-futures public and market channels.
+| Reviewed symbol/path | Inspected responsibility | Actual file SHA256 |
+|---|---|---|
+| [crawl_trade](../crypto-crawler/src/lib.rs) ([L223](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L223)) | Routes trades by exchange to specialized or generic crawler paths; unsupported exchanges panic. | `b57506fd48a0f1afa8d7eac46cbdcda582df30350156f0ce35fab7598ffcd046` |
+| [crawl_l2_event](../crypto-crawler/src/lib.rs) ([L243](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L243)) | Routes incremental orderbook feeds; L3 is separately routed to the supported venue subset. | `b57506fd48a0f1afa8d7eac46cbdcda582df30350156f0ce35fab7598ffcd046` |
+| [crawl_l2_snapshot](../crypto-crawler/src/lib.rs) ([L277](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/lib.rs#L277)) | Delegates snapshot collection to crawlers::crawl_snapshot with L2Snapshot message type. | `b57506fd48a0f1afa8d7eac46cbdcda582df30350156f0ce35fab7598ffcd046` |
+| [crawl_event](../crypto-crawler/src/crawlers/utils.rs) ([L705](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L705)) | Resolves symbol list, validates provided symbols, fetches discovered symbols and manages subscription limits/discovery/client loops. | `9fc04e0511639c1ccda878a0daa765ae8b273a0603178749e150244d72e31ccd` |
+| [subscribe_with_lock](../crypto-crawler/src/crawlers/utils.rs) ([L318](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L318)) | Maps MessageType to WSClient subscription method: trades, depth, BBO, topK or ticker. | `9fc04e0511639c1ccda878a0daa765ae8b273a0603178749e150244d72e31ccd` |
+| [fetch_symbols_retry](../crypto-crawler/src/crawlers/utils.rs) ([L15](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L15)) | Retries metadata retrieval with exchange cooldown and cross-process REST lock; returns obtained symbols. | `9fc04e0511639c1ccda878a0daa765ae8b273a0603178749e150244d72e31ccd` |
+| [crawl_snapshot](../crypto-crawler/src/crawlers/utils.rs) ([L106](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/crawlers/utils.rs#L106)) | Loops REST snapshot fetch, wraps messages with symbol, sends over channel and exits when receiver is gone; cooldown/backoff surround requests. | `9fc04e0511639c1ccda878a0daa765ae8b273a0603178749e150244d72e31ccd` |
+| [Message](../crypto-crawler/src/msg.rs) ([L12](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-crawler/src/msg.rs#L12)) | Stores exchange, market/message type, optional symbol, local received_at and untouched raw JSON; methods serialize JSON/TSV and parse TSV. | `6e20253d30e28684091d8c91b2c9c3c2a292ffcec40768c8dc21be612c67f3b2` |
+| [get_market_types](../crypto-market-type/src/lib.rs) ([L53](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/crypto-market-type/src/lib.rs#L53)) | Venue map distinguishes spot, inverse/linear futures/swaps and Deribit European options. Entries include retired venues and require current endpoint verification. | `c53298b821a6c7fb612b942eef298e1803ece8c0ac484c71701c3942b4868311` |
+| [docs/validation.md](../docs/validation.md) ([L16](https://github.com/alexcwyu/crypto-crawler-rs/blob/71cece019a390f5c0fbf4b33f4dddc3ac461ef8e/docs/validation.md#L10)) | Remaining live failures are excluded from completion policy; historical live arrival/authentication/retired venue failures remain failures. | `1adc09538dd962bfbbf5d31f52ba120fe09b6f3c5ca85bea233865fc292af4f9` |
 
-```mermaid
-sequenceDiagram
-    participant Caller
-    participant Client as OkxWSClient
-    participant Public as Public socket
-    participant Business as Business socket
-    participant Receiver as Caller message receiver
-    Caller->>Client: subscribe books and candles for admitted instruments
-    Client->>Public: original operation and books arguments
-    Client->>Business: original operation and candle arguments
-    par Public feed
-        Public->>Receiver: original public JSON messages
-    and Business feed
-        Business->>Receiver: original candle JSON messages
-    end
-    Caller->>Client: close
-    Client->>Public: close public connection
-    Client->>Business: close business connection
-```
+## Documentation provenance
 
-[Listed-contract fixture support](../test_support/listed_contracts.rs) queries actual metadata for the original underlying, settlement family and market type. Quarterly futures remain preferred when the original fixture was quarterly. Options prefer the original strike and then the nearest admitted strike while retaining call/put side. It does not return replay data or drop instruments because a venue no longer lists them. The unchanged supplied assertions still validate real messages. The [current funding parser patch](../vendor/crypto-msg-parser/src/exchanges/okx/okx_v5.rs) maps an omitted optional forecast to `None`, with [upstream license](../vendor/crypto-msg-parser/LICENSE) and [modification notice](../vendor/crypto-msg-parser/MODIFICATIONS.md).
+Review date: 2026-10-13. Full committed source HEAD: `71cece019a390f5c0fbf4b33f4dddc3ac461ef8e`. Template version: 2. 5 source files were independently hashed for this guide.
 
-Coinbase's public Level2 path uses its documented 50 ms batch feed; its Full/Level3 subscription returns an authentication error without account credentials. BitMEX's original futures fixtures are settled. Build/unit success and each dated live integration outcome are separately recorded in [validation](validation.md); neither a current socket acknowledgement nor a substituted market family is counted as a passing original data assertion.
+[Evidence catalog](../../docs/systems-2026-10-13/catalog.json) / [Standard template](../../docs/guidelines/APP_TEMPLATE.md)
 
-## Current Bybit v5 data path
-
-The [public instrument adapter](../crypto-markets/src/exchanges/bybit.rs) follows category cursor pages and admits only actual listed contract types. The [inverse](../crypto-ws-client/src/clients/bybit/bybit_inverse.rs) and [linear](../crypto-ws-client/src/clients/bybit/bybit_linear_swap.rs) clients use the corresponding real v5 sockets. The [licensed v5 decoder](../vendor/crypto-msg-parser/src/exchanges/bybit_v5.rs) preserves exchange timestamps, taker sides, zero-size deletions, update IDs and inverse volume units; historical parsing remains available. [Public REST requests](../crypto-rest-client/src/exchanges/bybit.rs) return actual v5 responses and propagate venue errors.
-
-```mermaid
-sequenceDiagram
-    participant Fixture as Existing contract fixture
-    participant Metadata as Bybit instrument adapter
-    participant API as Bybit v5 public APIs
-    participant Client as Native websocket client
-    participant Parser as Licensed native parser
-    participant Consumer as Crawler consumer
-    Fixture->>Metadata: Original base and contract family
-    Metadata->>API: Category and cursor pages
-    API-->>Metadata: Real listed symbols and delivery times
-    Metadata-->>Fixture: Admitted current symbol
-    Fixture->>Client: Existing subscription
-    Client->>API: publicTrade / orderbook / kline
-    API-->>Client: Genuine snapshot or delta
-    Client->>Parser: Original JSON and market identity
-    Parser-->>Consumer: Typed price, quantity, time and update
-    Consumer-->>Fixture: Original received-message assertions
-```
-
-Read [validation](validation.md) for terminal full and focused results. A quiet dated-future feed can fail the original arrival deadline; missing trade data is not replaced with perpetual or artificial events.
+- Inspected source paths: crypto-crawler/src/lib.rs, crypto-crawler/src/crawlers/utils.rs, crypto-crawler/src/msg.rs, crypto-market-type/src/lib.rs, docs/validation.md
+- Read-only audit against the full HEAD and tracked-diff provenance in inventory.json. Validation documentation is historical executed evidence; exclusions are completion policy, not live venue proof. No dependencies, tests or upstream files were changed.

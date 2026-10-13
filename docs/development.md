@@ -1,5 +1,11 @@
 # crypto-crawler-rs: development workflow and layout
 
+<!-- current-documentation-provenance -->
+Documentation reviewed: 2026-10-13 · Git source base: `71cece019a390f5c0fbf4b33f4dddc3ac461ef8e` · [Current architecture and feature guide](ayu-develop.md).
+Historical execution commands/results below retain their original dates and scope; this metadata update is not a new application test run.
+<!-- /current-documentation-provenance -->
+
+
 Use branch `feature/ayu_develop`. The actual upstream default branch and all fetched branch/tag identities are recorded in the maintenance sync evidence. Merge existing work; do not reset divergent branches or replace conflicting tags.
 
 ## Source synchronization
